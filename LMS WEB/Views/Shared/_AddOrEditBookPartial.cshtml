@@ -1,0 +1,66 @@
+﻿@model AddOrEditBookViewModel
+
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Code">Code</label>
+            <input asp-for="Code" class="form-control" placeholder="Enter code">
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input type="text" asp-for="Name" class="form-control" placeholder="Enter name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="CategoryId">Company</label>
+            <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.companies">
+                <option value="">--Select company--</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Author">Author</label>
+            <input asp-for="Author" class="form-control" placeholder="Enter price">
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Count">Count</label>
+            <input asp-for="Count" class="form-control" placeholder="Enter quantity">
+            <span asp-validation-for="Count" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Files</label>
+            <input type="file" class="form-control-file" multiple name="FormFiles" asp-for="FormFiles">
+        </div>
+    </div>
+
+</div>
+
+<div class="row mx-4 text-danger" asp-validation-summary="ModelOnly"></div>
+
+<div class="btn-group  mx-4  float-end">
+    <a class="btn btn-outline-danger me-2" asp-action="Index">Cancel</a>
+    <button type="submit" class="btn btn-success me-2"><i class="fa-regular fa-check"></i> Save</button>
+</div>

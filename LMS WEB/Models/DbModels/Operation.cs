@@ -24,5 +24,5 @@ public partial class Operation
     public bool Status { get; set; }
 
     [Column(TypeName = "datetime")]
-    public DateTime? CreateDate { get; set; }
+    public DateTime? OperationDate { get; set; }
 }

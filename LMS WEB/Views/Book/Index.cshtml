@@ -1,19 +1,4 @@
-﻿
-
-
-
-
-
-
-
-<table class="table">
-    <thead class="table-dark">
-        ...
-    </thead>
-    <tbody>
-        ...
-    </tbody>
-</table>
+﻿@model List<VwBook>
 
 
 
@@ -24,12 +9,51 @@
 
 
 
-@*
-<div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Order</a>
-    </div>
-</div>*@
+
+
+<div class="row mx-1">
+    <table class="table table-bordered shadow text-center">
+        <thead class="table-dark">
+
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Author</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Created date</th>
+                <th width="130" scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+            }
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <th scope="row">@counter</th>
+                    <td>@book.Code</td>
+                    <td>@book.Name</td>
+                    <td>@book.Category</td>
+                    <td>@book.Author</td>
+                    <td>@book.Count</td>
+                    <td>@book.CreateDate?.ToString("dd-MM-yyyy")</td>
+                    <td>
+                        <a asp-action="BookFiles" title="Book files" asp-route-id="@book.Id" class="btn btn-sm btn-circle btn-warning"><i class="fa-thin fa-file-image"></i></a>
+                        <a asp-action="EditProduct" asp-route-id="@book.Id" class="btn btn-sm btn-circle btn-primary"><i class="fa-light fa-pen-to-square"></i></a>
+                        <a onclick="return confirm('Are you sure to delete?')" asp-action="DeleteProduct" asp-route-id="@book.Id" class="btn btn-sm btn-circle btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+
+                counter++;
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+                    @*<td>@book.Remainder</td>*@

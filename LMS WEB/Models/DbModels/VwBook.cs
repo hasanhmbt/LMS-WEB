@@ -6,27 +6,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LMS_WEB.Models.DbModels;
 
-public partial class Book
+[Keyless]
+public partial class VwBook
 {
-    [Key]
     public int Id { get; set; }
 
     [StringLength(100)]
     public string? Name { get; set; }
 
+    [StringLength(6)]
+    public string? Code { get; set; }
+
     [StringLength(200)]
     public string? Author { get; set; }
 
-    public int? Count { get; set; }
-
-    [Required]
-    public bool? Status { get; set; }
+    [StringLength(100)]
+    public string? Category { get; set; }
 
     public int? CategoryId { get; set; }
 
+    public int? Count { get; set; }
+
+    public bool Status { get; set; }
+
     [Column(TypeName = "datetime")]
     public DateTime? CreateDate { get; set; }
-
-    [StringLength(6)]
-    public string? Code { get; set; }
 }
