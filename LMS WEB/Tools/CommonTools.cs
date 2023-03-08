@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text;
 
-namespace OMS_Web.Tools
+namespace  LMS_Web.Tools
 {
     internal class CommonTools
     {

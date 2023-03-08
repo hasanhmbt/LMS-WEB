@@ -1,6 +1,6 @@
 ﻿using OMS_Web.Models;
 
-namespace LibraryManagmetSystemWeb.Tools
+namespace LMS_WEB.Tools
 {
     public class FileOperations
     {
