@@ -1,0 +1,33 @@
+﻿@model List<BookCategory>
+
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Companies</h1>
+    <a asp-action="AddCtegory" class="d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm">Add <i class="fa-light fa-plus"></i></a>
+</div>
+
+
+<div class="row">
+    @if (Model.Any())
+    {
+
+
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+
+
+            @foreach (var category in Model)
+            {
+                <div class="card-header">@category.Name</div>
+                <div class="card-body">
+                    @if (category.Books.Any())
+                    {
+                        @foreach (var book in category.Books.Take(5))
+                        {
+                            <p class="card-text">@book.Code-@book.Name</p>
+                        }
+                    }
+
+                </div>
+            }
+        </div>
+    }

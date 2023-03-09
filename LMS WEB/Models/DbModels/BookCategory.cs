@@ -16,4 +16,7 @@ public partial class BookCategory
 
     [Required]
     public bool? Status { get; set; }
+
+    [InverseProperty("BookCategory")]
+    public virtual ICollection<Book> Books { get;  }= new List<Book>();
 }

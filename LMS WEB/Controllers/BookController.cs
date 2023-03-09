@@ -1,7 +1,13 @@
-﻿using LMS_WEB.Data;
+﻿using JetBrains.Annotations;
+using LMS_WEB.Data;
+using LMS_WEB.Models.DbModels;
 using LMS_WEB.Repositories.Abstract;
+using LMS_WEB.Tools;
+using LMS_WEB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using OMS_Web.Models;
 
 namespace LMS_WEB.Controllers
 {
@@ -20,11 +26,159 @@ namespace LMS_WEB.Controllers
             _bookRepository = bookRepository;
         }
 
-        //public Task<IActionResult> AddBook()
-        //{
 
-        //    if(!ModelState.IsValid)
-        //    return View();
-        //}
+        [HttpGet]
+
+        public async Task<IActionResult> Index(int categoryId, string category)
+        {
+            var books = await _bookRepository.GetAllAsync(categoryId);
+            ViewBag.Category = category;
+            ViewBag.CategoryId = categoryId;
+
+            return View(books);
+        }
+
+        [HttpPost]
+
+        public async Task<IActionResult> Index(int categoryId, string category, string searchText)
+        {
+            var books = await _bookRepository.GetAllAsync(categoryId);
+            ViewBag.Category = category;
+            ViewBag.CategoryId = categoryId;
+            ViewBag.SearchText = searchText;
+
+            return View(books);
+        }
+
+
+        public async Task<IActionResult> DeleteBook(int Id)
+        {
+            _bookRepository.Delete(Id);
+            return RedirectToAction("Index");
+        }
+
+
+
+        public async Task<IActionResult> AddBook()
+        {
+            ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            return View();
+        }
+
+
+        [HttpPost]
+
+        public ActionResult AddBook(AddOrEditBookViewModel model)
+        {
+            ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            int bookId = _bookRepository.Add(new Book { Code = model.Code, Name = model.Name, CategoryId = model.CategoryId, Author = model.Author, Count = model.Count });
+
+            var bookImages = new List<BookImage>();
+            List<FileUploadResult> results = new List<FileUploadResult>();
+
+            if (model.FormFiles != null && model.FormFiles.Count > 0)
+                results = FileOperations.UploadMultipleFiles(_webHostEnvironment.WebRootPath, "Books", model.FormFiles);
+
+            foreach (var result in results)
+                bookImages.Add(new BookImage { BookId = bookId, FileName = result.FileName, FilePath = result.FilePath });
+
+
+            if (bookImages.Count > 0)
+            {
+                _appDbContext.BookImages.AddRange(bookImages);
+                _appDbContext.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Index));
+
+
+        }
+
+
+
+
+        public async Task<IActionResult> EditBook(int id)
+        {
+            ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            var book = await _bookRepository.GetByIdAsync(id);
+
+            var model = new AddOrEditBookViewModel
+            {
+                Id = book.Id,
+                Code = book.Code,
+                Name = book.Name,
+                Author = book.Author,
+                CategoryId = book.CategoryId,
+                Count = book.Count
+
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(AddOrEditBookViewModel model)
+        {
+            ViewBag.companies = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var book = await _bookRepository.GetByIdAsync(model.Id);
+
+            book.Id = model.Id;
+            book.Code = model.Code;
+            book.Name = model.Name;
+            book.Author = model.Author;
+            book.CategoryId = model.CategoryId;
+            book.Count = model.Count;
+
+            _bookRepository.Edit(book);
+
+            var productImages = new List<BookImage>();
+            List<FileUploadResult> results = new();
+
+            if (model.FormFiles != null && model.FormFiles.Count > 0)
+            {
+                results = FileOperations.UploadMultipleFiles(_webHostEnvironment.WebRootPath, "Books", model.FormFiles);
+            }
+
+            foreach (var result in results)
+            {
+                productImages.Add(new BookImage { BookId = model.Id, FileName = result.FileName, FilePath = result.FilePath });
+            }
+
+            if (productImages.Count > 0)
+            {
+                _appDbContext.BookImages.AddRange(productImages);
+                _appDbContext.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        [HttpGet]
+        public IActionResult ProductFiles(int id)
+        {
+            var productFiles = _appDbContext.BookImages.Where(p => p.BookId == id).ToList();
+            return View(productFiles);
+        }
+
+        public async Task<IActionResult> DeleteProductFile(int id)
+        {
+            var productFile = await _appDbContext.BookImages.FindAsync(id);
+
+            _appDbContext.BookImages.Remove(productFile);
+            _appDbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ProductFiles), new { id = productFile.BookId });
+        }
+        
+
     }
 }

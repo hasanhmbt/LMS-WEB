@@ -23,9 +23,9 @@
 <div class="row mx-4">
     <div class="col-lg-6">
         <div class="form-group">
-            <label asp-for="CategoryId">Company</label>
-            <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.companies">
-                <option value="">--Select company--</option>
+            <label asp-for="CategoryId">category</label>
+            <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.categories">
+                <option value="">--Select category--</option>
             </select>
             <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
