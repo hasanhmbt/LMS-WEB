@@ -8,8 +8,8 @@ namespace LMS_WEB.Repositories.Abstract
         Task<List<VwBook>> GetAllAsync(int companyId, string searchText = "");
 
         Task<Book> GetByIdAsync(int? id);
-        int Add(Book product);
-        void Edit(Book product);
+        int Add(Book book);
+        void Edit(Book book);
 
         void Delete(int id);
 

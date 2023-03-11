@@ -29,4 +29,5 @@ public partial class Book
 
     [StringLength(6)]
     public string? Code { get; set; }
+
 }

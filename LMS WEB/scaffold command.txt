@@ -1,5 +1,4 @@
-Scaffold-DbContext "Server=.; Database=DB_LibraryWeb; Integrated security=True; TrustServerCertificate=True;" -Context AppDbContext -ContextDir Data -OutputDir Models/DbModels Microsoft.EntityFrameworkCore.SqlServer -DataAnnotations -force 
-
+c
 
  Add-Migration InitialMigration -Context AppIdentityDbContext
  Update-Database -Context AppIdentityDbContext
