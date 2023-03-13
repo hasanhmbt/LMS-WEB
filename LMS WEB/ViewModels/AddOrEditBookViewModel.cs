@@ -22,7 +22,7 @@ namespace LMS_WEB.ViewModels
         [StringLength(200)]
         public string? Author { get; set; }
         [Required]
-        public int? Count { get; set; }
+        public int? BookQuantity { get; set; }
 
         [Required]
         public int? CategoryId { get; set; }

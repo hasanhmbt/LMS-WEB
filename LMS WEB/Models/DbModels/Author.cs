@@ -6,16 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LMS_WEB.Models.DbModels;
 
-public partial class BookCategory
+public partial class Author
 {
     [Key]
     public int Id { get; set; }
 
-    [StringLength(100)]
+    [StringLength(150)]
     public string? Name { get; set; }
 
-    public string CategoryDescription { get; set; } = null!;
+    [StringLength(150)]
+    public string? Surname { get; set; }
 
-    [InverseProperty("Category")]
-    public virtual ICollection<Book> Books { get; } = new List<Book>();
+    [Column(TypeName = "date")]
+    public DateTime? Birthdate { get; set; }
 }

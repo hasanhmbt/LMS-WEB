@@ -16,6 +16,8 @@ public partial class AppDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Author> Authors { get; set; }
+
     public virtual DbSet<Book> Books { get; set; }
 
     public virtual DbSet<BookCategory> BookCategories { get; set; }
@@ -36,19 +38,26 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Author>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Authors__3214EC075E7725E7");
+        });
+
         modelBuilder.Entity<Book>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Books__3214EC0781DC8F87");
 
             entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Status).HasDefaultValueSql("((1))");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Books).HasConstraintName("FK__Books__CategoryI__6C190EBB");
         });
 
         modelBuilder.Entity<BookCategory>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__BookCate__3214EC07DCAE4D49");
 
-            entity.Property(e => e.Status).HasDefaultValueSql("((1))");
+            entity.Property(e => e.CategoryDescription).HasDefaultValueSql("((1))");
         });
 
         modelBuilder.Entity<BookImage>(entity =>
@@ -56,6 +65,8 @@ public partial class AppDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__BookImag__3214EC07CAA1CCDC");
 
             entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.Book).WithMany(p => p.BookImages).HasConstraintName("FK__BookImage__BookI__6D0D32F4");
         });
 
         modelBuilder.Entity<Operation>(entity =>
@@ -63,6 +74,8 @@ public partial class AppDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Operatio__3214EC0768B37796");
 
             entity.Property(e => e.OperationDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.Book).WithMany(p => p.Operations).HasConstraintName("FK__Operation__BookI__6E01572D");
         });
 
         modelBuilder.Entity<Reader>(entity =>

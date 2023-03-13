@@ -21,4 +21,8 @@ public partial class BookImage
 
     [Column(TypeName = "datetime")]
     public DateTime? CreateDate { get; set; }
+
+    [ForeignKey("BookId")]
+    [InverseProperty("BookImages")]
+    public virtual Book? Book { get; set; }
 }

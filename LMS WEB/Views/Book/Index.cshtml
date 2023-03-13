@@ -2,12 +2,29 @@
 
 
 
+@{
+    ViewData["Title"] = $"{ViewBag.category} Books".Trim();
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">@($"{ViewBag.category} Products".Trim())</h1>
+    <a asp-action="AddBook" class="d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm">Add <i class="fa-light fa-plus"></i></a>
+</div>
 
 
 
 
-
-
+<div class="row">
+    <form method="post" asp-action="Index">
+        <div class="row mx-1 mb-2">
+            <input type="hidden" value="@ViewBag.category" name="category" />
+            <input type="hidden" value="@ViewBag.categoryId" name="categoryId" />
+            <input type="text" value="@ViewBag.searchText" class=" col-2 form-control form-control-sm" name="searchText" placeholder="Enter name" />
+            <button class="btn btn-sm btn-outline-primary shadow-sm w-auto ml-1"><i class="fa-regular fa-magnifying-glass"></i></button>
+        </div>
+    </form>
+</div>
 
 
 
@@ -38,7 +55,7 @@
                     <td>@book.Name</td>
                     <td>@book.Category</td>
                     <td>@book.Author</td>
-                    <td>@book.Count</td>
+                    <td>@book.BookQuantity</td>
                     <td>@book.CreateDate?.ToString("dd-MM-yyyy")</td>
                     <td>
                         <a asp-action="BookFiles" title="Book files" asp-route-id="@book.Id" class="btn btn-sm btn-circle btn-warning"><i class="fa-thin fa-file-image"></i></a>

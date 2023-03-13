@@ -25,7 +25,7 @@ public partial class VwBook
 
     public int? CategoryId { get; set; }
 
-    public int? Count { get; set; }
+    public int? BookQuantity { get; set; }
 
     public bool Status { get; set; }
 

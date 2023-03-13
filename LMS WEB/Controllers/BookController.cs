@@ -75,7 +75,7 @@ namespace LMS_WEB.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            int bookId = _bookRepository.Add(new Book { Code = model.Code, Name = model.Name, CategoryId = model.CategoryId, Author = model.Author, Count = model.Count });
+            int bookId = _bookRepository.Add(new Book { Code = model.Code, Name = model.Name, CategoryId = model.CategoryId, Author = model.Author, Count = model.BookQuantity });
 
             var bookImages = new List<BookImage>();
             List<FileUploadResult> results = new List<FileUploadResult>();
@@ -113,7 +113,7 @@ namespace LMS_WEB.Controllers
                 Name = book.Name,
                 Author = book.Author,
                 CategoryId = book.CategoryId,
-                Count = book.Count
+                //BookQuantity = book.BookQuantity
 
             };
 
@@ -135,7 +135,7 @@ namespace LMS_WEB.Controllers
             book.Name = model.Name;
             book.Author = model.Author;
             book.CategoryId = model.CategoryId;
-            book.Count = model.Count;
+            book.Count = model.BookQuantity;
 
             _bookRepository.Edit(book);
 

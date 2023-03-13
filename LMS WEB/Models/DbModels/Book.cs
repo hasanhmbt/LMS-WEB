@@ -30,4 +30,13 @@ public partial class Book
     [StringLength(6)]
     public string? Code { get; set; }
 
+    [InverseProperty("Book")]
+    public virtual ICollection<BookImage> BookImages { get; } = new List<BookImage>();
+
+    [ForeignKey("CategoryId")]
+    [InverseProperty("Books")]
+    public virtual BookCategory? Category { get; set; }
+
+    [InverseProperty("Book")]
+    public virtual ICollection<Operation> Operations { get; } = new List<Operation>();
 }
