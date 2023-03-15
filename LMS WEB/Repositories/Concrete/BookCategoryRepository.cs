@@ -39,7 +39,7 @@ namespace LMS_WEB.Repositories.Concrete
 
         public async Task<List<BookCategory>> GetAllAsync()
         {
-            return await _appDbContext.BookCategories.Include(c => c.Books).ToListAsync();
+           return await _appDbContext.BookCategories.Include(c => c.Books).ToListAsync();
         }
 
         public async Task<BookCategory> GetByIdAsync(int id)

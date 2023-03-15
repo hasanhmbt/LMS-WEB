@@ -14,9 +14,6 @@ public partial class Book
     [StringLength(100)]
     public string? Name { get; set; }
 
-    [StringLength(200)]
-    public string? Author { get; set; }
-
     public int? Count { get; set; }
 
     [Required]
@@ -29,6 +26,12 @@ public partial class Book
 
     [StringLength(6)]
     public string? Code { get; set; }
+
+    public int? AuthorId { get; set; }
+
+    [ForeignKey("AuthorId")]
+    [InverseProperty("Books")]
+    public virtual Author? Author { get; set; }
 
     [InverseProperty("Book")]
     public virtual ICollection<BookImage> BookImages { get; } = new List<BookImage>();

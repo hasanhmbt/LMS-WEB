@@ -62,6 +62,8 @@ namespace LMS_WEB.Controllers
         public async Task<IActionResult> AddBook()
         {
             ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            ViewBag.authors = _appDbContext.Authors.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+
             return View();
         }
 
@@ -71,11 +73,11 @@ namespace LMS_WEB.Controllers
         public ActionResult AddBook(AddOrEditBookViewModel model)
         {
             ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
-
+            ViewBag.authors = _appDbContext.Authors.Select(c=> new SelectListItem {Value=c.Id.ToString(),Text =c.Name }).ToList() ;
             if (!ModelState.IsValid)
                 return View(model);
 
-            int bookId = _bookRepository.Add(new Book { Code = model.Code, Name = model.Name, CategoryId = model.CategoryId, Author = model.Author, Count = model.BookQuantity });
+            int bookId = _bookRepository.Add(new Book { Code = model.Code, Name = model.Name, CategoryId = model.CategoryId, AuthorId = model.AuthorId, Count = model.BookQuantity });
 
             var bookImages = new List<BookImage>();
             List<FileUploadResult> results = new List<FileUploadResult>();
@@ -104,6 +106,8 @@ namespace LMS_WEB.Controllers
         public async Task<IActionResult> EditBook(int id)
         {
             ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            ViewBag.authors = _appDbContext.Authors.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+
             var book = await _bookRepository.GetByIdAsync(id);
 
             var model = new AddOrEditBookViewModel
@@ -111,9 +115,9 @@ namespace LMS_WEB.Controllers
                 Id = book.Id,
                 Code = book.Code,
                 Name = book.Name,
-                Author = book.Author,
+                AuthorId = book.AuthorId,
                 CategoryId = book.CategoryId,
-                //BookQuantity = book.BookQuantity
+                BookQuantity = book.Count
 
             };
 
@@ -121,7 +125,7 @@ namespace LMS_WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditProduct(AddOrEditBookViewModel model)
+        public async Task<IActionResult> EditBook(AddOrEditBookViewModel model)
         {
             ViewBag.companies = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
 
@@ -133,13 +137,13 @@ namespace LMS_WEB.Controllers
             book.Id = model.Id;
             book.Code = model.Code;
             book.Name = model.Name;
-            book.Author = model.Author;
+            book.AuthorId = model.AuthorId;
             book.CategoryId = model.CategoryId;
             book.Count = model.BookQuantity;
 
             _bookRepository.Edit(book);
 
-            var productImages = new List<BookImage>();
+            var bookImages = new List<BookImage>();
             List<FileUploadResult> results = new();
 
             if (model.FormFiles != null && model.FormFiles.Count > 0)
@@ -149,12 +153,12 @@ namespace LMS_WEB.Controllers
 
             foreach (var result in results)
             {
-                productImages.Add(new BookImage { BookId = model.Id, FileName = result.FileName, FilePath = result.FilePath });
+                bookImages.Add(new BookImage { BookId = model.Id, FileName = result.FileName, FilePath = result.FilePath });
             }
 
-            if (productImages.Count > 0)
+            if (bookImages.Count > 0)
             {
-                _appDbContext.BookImages.AddRange(productImages);
+                _appDbContext.BookImages.AddRange(bookImages);
                 _appDbContext.SaveChanges();
             }
 
@@ -163,20 +167,20 @@ namespace LMS_WEB.Controllers
 
 
         [HttpGet]
-        public IActionResult ProductFiles(int id)
+        public IActionResult BookFiles(int id)
         {
-            var productFiles = _appDbContext.BookImages.Where(p => p.BookId == id).ToList();
-            return View(productFiles);
+            var bookFiles = _appDbContext.BookImages.Where(p => p.BookId == id).ToList();
+            return View(bookFiles);
         }
 
         public async Task<IActionResult> DeleteProductFile(int id)
         {
-            var productFile = await _appDbContext.BookImages.FindAsync(id);
+            var bookFile = await _appDbContext.BookImages.FindAsync(id);
 
-            _appDbContext.BookImages.Remove(productFile);
+            _appDbContext.BookImages.Remove(bookFile);
             _appDbContext.SaveChangesAsync();
 
-            return RedirectToAction(nameof(ProductFiles), new { id = productFile.BookId });
+            return RedirectToAction(nameof(bookFile), new { id = bookFile.BookId });
         }
         
 

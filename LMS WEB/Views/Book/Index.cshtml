@@ -8,7 +8,7 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">@($"{ViewBag.category} Products".Trim())</h1>
+    <h1 class="h3 mb-0 text-gray-800">@($"{ViewBag.category} Books".Trim())</h1>
     <a asp-action="AddBook" class="d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm">Add <i class="fa-light fa-plus"></i></a>
 </div>
 
@@ -39,6 +39,7 @@
                 <th scope="col">Category</th>
                 <th scope="col">Author</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">Remainder</th>
                 <th scope="col">Created date</th>
                 <th width="130" scope="col">Actions</th>
             </tr>
@@ -55,8 +56,9 @@
                     <td>@book.Name</td>
                     <td>@book.Category</td>
                     <td>@book.Author</td>
-                    <td>@book.BookQuantity</td>
-                    <td>@book.CreateDate?.ToString("dd-MM-yyyy")</td>
+                    <td>@book.Count</td>
+                    <td>@book.Remainder</td>
+                    <td>@book.CreateDate?.ToString("dd-MM-yyyy | hh:mm ")</td>
                     <td>
                         <a asp-action="BookFiles" title="Book files" asp-route-id="@book.Id" class="btn btn-sm btn-circle btn-warning"><i class="fa-thin fa-file-image"></i></a>
                         <a asp-action="EditBook" asp-route-id="@book.Id" class="btn btn-sm btn-circle btn-primary"><i class="fa-light fa-pen-to-square"></i></a>
@@ -73,4 +75,4 @@
 
 
 
-                    @*<td>@book.Remainder</td>*@
+                    

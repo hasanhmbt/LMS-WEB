@@ -17,15 +17,19 @@ public partial class VwBook
     [StringLength(6)]
     public string? Code { get; set; }
 
-    [StringLength(200)]
-    public string? Author { get; set; }
+    public int? AuthorId { get; set; }
+
+    [StringLength(302)]
+    public string Author { get; set; } = null!;
 
     [StringLength(100)]
     public string? Category { get; set; }
 
     public int? CategoryId { get; set; }
 
-    public int? BookQuantity { get; set; }
+    public int? Count { get; set; }
+
+    public int? Remainder { get; set; }
 
     public bool Status { get; set; }
 

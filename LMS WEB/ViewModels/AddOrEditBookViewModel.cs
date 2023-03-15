@@ -20,7 +20,7 @@ namespace LMS_WEB.ViewModels
 
         [Required]
         [StringLength(200)]
-        public string? Author { get; set; }
+        public int? AuthorId { get; set; }
         [Required]
         public int? BookQuantity { get; set; }
 

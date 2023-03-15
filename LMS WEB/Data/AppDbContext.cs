@@ -18,6 +18,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Author> Authors { get; set; }
 
+    public virtual DbSet<AuthorImage> AuthorImages { get; set; }
+
     public virtual DbSet<Book> Books { get; set; }
 
     public virtual DbSet<BookCategory> BookCategories { get; set; }
@@ -43,6 +45,15 @@ public partial class AppDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Authors__3214EC075E7725E7");
         });
 
+        modelBuilder.Entity<AuthorImage>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__AuthorIm__3214EC07CC2F75A0");
+
+            entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.Author).WithMany(p => p.AuthorImages).HasConstraintName("FK__AuthorIma__Autho__17F790F9");
+        });
+
         modelBuilder.Entity<Book>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Books__3214EC0781DC8F87");
@@ -50,7 +61,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Status).HasDefaultValueSql("((1))");
 
-            entity.HasOne(d => d.Category).WithMany(p => p.Books).HasConstraintName("FK__Books__CategoryI__6C190EBB");
+            entity.HasOne(d => d.Author).WithMany(p => p.Books).HasConstraintName("FK__Books__AuthorId__14270015");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Books).HasConstraintName("FK__Books__CategoryI__19DFD96B");
         });
 
         modelBuilder.Entity<BookCategory>(entity =>
