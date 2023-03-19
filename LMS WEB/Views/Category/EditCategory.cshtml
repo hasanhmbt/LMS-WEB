@@ -1,0 +1,17 @@
+﻿@model AddOrEditCategoryViewModel
+
+@{
+    ViewData["Title"] = "Edit category";
+}
+
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Edit category</h1>
+</div>
+
+<form method="post" asp-action="EditCategory" enctype="multipart/form-data">
+    <partial name="_AddOrEditCategoryPartial" model="@Model" />
+
+</form>
+

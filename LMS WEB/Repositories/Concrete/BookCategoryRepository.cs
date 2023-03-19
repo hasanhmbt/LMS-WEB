@@ -15,10 +15,23 @@ namespace LMS_WEB.Repositories.Concrete
             _appDbContext = appDbContext;
         }
 
-        public void Add(BookCategory category)
+
+        public async Task<List<VwBookCategory>> GetAllAsync()
+        {
+            return await _appDbContext.VwBookCategories.ToListAsync();
+        }
+
+        public async Task<BookCategory> GetByIdAsync(int id)
+        {
+            return await _appDbContext.BookCategories.FindAsync(id);
+        }
+
+
+        public int Add(BookCategory category)
         {
             _appDbContext.BookCategories.Add(category);
             _appDbContext.SaveChanges();
+            return category.Id;
         }
 
         public void Edit(BookCategory category, int id)
@@ -37,16 +50,7 @@ namespace LMS_WEB.Repositories.Concrete
             _appDbContext.SaveChanges();
         }
 
-        public async Task<List<BookCategory>> GetAllAsync()
-        {
-           return await _appDbContext.BookCategories.Include(c => c.Books).ToListAsync();
-        }
-
-        public async Task<BookCategory> GetByIdAsync(int id)
-        {
-            return await _appDbContext.BookCategories.FindAsync(id);
-        }
-
+        
 
     }
 }

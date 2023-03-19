@@ -20,8 +20,21 @@ html {
 body {
   margin-bottom: 60px;
 }*/
-
-.field-validation-valid{
+/**/
+/*.field-validation-valid{
     display:none
 }
-
+*/
+/*{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100px;  
+}
+#content {
+    overflow: hidden;*/
+    /*width: 100px;*/
+    /*display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}*/

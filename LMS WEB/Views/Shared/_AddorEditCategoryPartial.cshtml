@@ -1,0 +1,25 @@
+﻿@model AddOrEditCategoryViewModel
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input type="text" asp-for="Name" class="form-control" placeholder="Enter name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="CategoryDescription">Category Description</label>
+            <textarea asp-for="CategoryDescription" class="form-control" rows="3"></textarea>
+            @*<span asp-validation-for="CategoryDescription" class="text-danger"></span>*@
+        </div>
+    </div>
+</div>
+
+<div class="row mx-4 text-danger" asp-validation-summary="ModelOnly"></div>
+
+<div class="btn-group  mx-4  float-end">
+    <a class="btn btn-outline-danger me-2" asp-action="Index">Cancel</a>
+    <button type="submit" class="btn btn-success me-2"><i class="fa-regular fa-check"></i> Save</button>
+</div>

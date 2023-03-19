@@ -7,15 +7,18 @@ using Microsoft.EntityFrameworkCore;
 namespace LMS_WEB.Models.DbModels;
 
 [Keyless]
-public partial class VwBookCategory
+public partial class VwAuthor
 {
     public int Id { get; set; }
 
-    [StringLength(100)]
+    [StringLength(150)]
     public string? Name { get; set; }
 
-    public string CategoryDescription { get; set; } = null!;
+    [StringLength(150)]
+    public string? Surname { get; set; }
 
-    [Column("books")]
+    [Column(TypeName = "date")]
+    public DateTime? Birthdate { get; set; }
+
     public int? Books { get; set; }
 }

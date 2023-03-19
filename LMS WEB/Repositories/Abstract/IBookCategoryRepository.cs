@@ -5,10 +5,10 @@ namespace LMS_WEB.Repositories.Abstract
 {
     public interface IBookCategoryRepository
     {
-        Task<List<BookCategory>> GetAllAsync();
+        Task<List<VwBookCategory>> GetAllAsync();
 
         Task<BookCategory> GetByIdAsync(int id);
-        void Add(BookCategory category);
+        int Add(BookCategory category);
         void Edit(BookCategory category, int id);
 
         void Delete(int id);

@@ -73,11 +73,18 @@ namespace LMS_WEB.Controllers
         public ActionResult AddBook(AddOrEditBookViewModel model)
         {
             ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
-            ViewBag.authors = _appDbContext.Authors.Select(c=> new SelectListItem {Value=c.Id.ToString(),Text =c.Name }).ToList() ;
+            ViewBag.authors = _appDbContext.Authors.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
             if (!ModelState.IsValid)
                 return View(model);
 
-            int bookId = _bookRepository.Add(new Book { Code = model.Code, Name = model.Name, CategoryId = model.CategoryId, AuthorId = model.AuthorId, Count = model.BookQuantity });
+            int bookId = _bookRepository.Add(new Book
+            {
+                Code = model.Code,
+                Name = model.Name,
+                CategoryId = model.CategoryId,
+                AuthorId = model.AuthorId,
+                Count = model.BookQuantity
+            });
 
             var bookImages = new List<BookImage>();
             List<FileUploadResult> results = new List<FileUploadResult>();
@@ -184,7 +191,7 @@ namespace LMS_WEB.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        
+
 
     }
 }

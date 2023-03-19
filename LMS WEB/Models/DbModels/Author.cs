@@ -20,6 +20,8 @@ public partial class Author
     [Column(TypeName = "date")]
     public DateTime? Birthdate { get; set; }
 
+    public string? Description { get; set; }
+
     [InverseProperty("Author")]
     public virtual ICollection<AuthorImage> AuthorImages { get; } = new List<AuthorImage>();
 
