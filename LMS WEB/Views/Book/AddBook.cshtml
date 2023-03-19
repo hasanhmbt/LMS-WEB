@@ -11,10 +11,10 @@
     <h1 class="h3 mb-0 text-gray-800">Add book</h1>
 </div>
 
-<form method="post" asp-action="AddBook" enctype="multipart/form-data">
+
+<form method="post" asp-action="AddBook", asp-controller="Book" enctype="multipart/form-data">
 
     <partial name="_AddOrEditBookPartial" model="@Model" />
 
 </form>
-
 

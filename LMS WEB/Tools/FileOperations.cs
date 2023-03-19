@@ -20,7 +20,7 @@ namespace LMS_WEB.Tools
                     Directory.CreateDirectory(uploadPath);
                 }
 
-                string extension = Path.GetExtension(file.FileName); // test.pdf
+                string extension = Path.GetExtension(file.FileName); 
                 string newFileName = $"DOC_{DateTime.Now.ToString("yyyyMMdd_HHmmssfff")}{extension}";
                 string dbPath = $"\\{Path.Combine(uploadFolder, newFileName)}";
 

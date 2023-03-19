@@ -1,0 +1,49 @@
+﻿@model List<BookImage>
+
+@{
+    ViewData["Title"] = "Book files";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Book files</h1>
+</div>
+
+<div class="row mx-1">
+    <table class="table table-bordered shadow">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">File</th>
+                <th scope="col">Created date</th>
+                <th width="20" scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                int counter = 1;
+
+                @foreach (var file in Model)
+                {
+                    <tr>
+                        <th scope="row">@counter</th>
+                        <td> <a href="@file.FilePath" target="_blank">@file.FileName</a> </td>
+                        <td>@file.CreateDate?.ToString("dd-MM-yyyy")</td>
+                        <td>
+                            <a onclick="return confirm('Are you sure to delete?')" asp-action="DeleteBookFile" asp-route-id="@file.Id" class="btn btn-sm btn-circle btn-danger"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+
+                    counter++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center">No files available</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

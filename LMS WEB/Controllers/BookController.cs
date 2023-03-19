@@ -54,7 +54,7 @@ namespace LMS_WEB.Controllers
         public async Task<IActionResult> DeleteBook(int Id)
         {
             _bookRepository.Delete(Id);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
 
@@ -173,14 +173,16 @@ namespace LMS_WEB.Controllers
             return View(bookFiles);
         }
 
-        public async Task<IActionResult> DeleteProductFile(int id)
+        public async Task<IActionResult> DeleteBookFile(int id)
         {
             var bookFile = await _appDbContext.BookImages.FindAsync(id);
+            var bookFiles = _appDbContext.BookImages.Where(p => p.BookId == id).ToList();
+
 
             _appDbContext.BookImages.Remove(bookFile);
             _appDbContext.SaveChangesAsync();
 
-            return RedirectToAction(nameof(bookFile), new { id = bookFile.BookId });
+            return RedirectToAction(nameof(Index));
         }
         
 

@@ -10,21 +10,20 @@ namespace LMS_WEB.ViewModels
 
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Write a book code!")]
         [StringLength(6)]
         public string? Code { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Write a book name!")]
         [StringLength(100)]
         public string? Name { get; set; }
 
-        [Required]
-        [StringLength(200)]
+        [Required(ErrorMessage ="Select an Author!")]
         public int? AuthorId { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Write book quantity!")]
         public int? BookQuantity { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Select a book category!")]
         public int? CategoryId { get; set; }
 
         public List<IFormFile>? FormFiles { get; set; }

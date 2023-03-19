@@ -30,7 +30,7 @@ namespace LMS_WEB.Repositories.Concrete
         public void Delete(int id) 
         {
             var book = _appDbContext.Books.Find(id);
-            _appDbContext.Books.Update(book);
+            _appDbContext.Books.Remove(book);
             _appDbContext.SaveChanges();
         }
 

@@ -1,33 +1,71 @@
-﻿@model List<BookCategory>
+﻿@model List<VwBookCategory>
 
 
+
+@{
+    ViewData["Title"] = $" Book Categories";
+}
+
+<!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Companies</h1>
-    <a asp-action="AddCtegory" class="d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm">Add <i class="fa-light fa-plus"></i></a>
+    <h1 class="h3 mb-0 text-gray-800">@($"{ViewBag.category} Book Categories".Trim())</h1>
+    <a asp-action="AddCategory" class="d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm">Add <i class="fa-light fa-plus"></i></a>
 </div>
 
 
+
+
 <div class="row">
-    @if (Model.Any())
-    {
+    <form method="post" asp-action="Index">
+        <div class="row mx-1 mb-2">
+            <input type="hidden" value="@ViewBag.category" name="category" />
+            <input type="hidden" value="@ViewBag.categoryId" name="categoryId" />
+            <input type="text" value="@ViewBag.searchText" class=" col-2 form-control form-control-sm" name="searchText" placeholder="Enter name" />
+            <button class="btn btn-sm btn-outline-primary shadow-sm w-auto ml-1"><i class="fa-regular fa-magnifying-glass"></i></button>
+        </div>
+    </form>
+</div>
 
 
-        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
 
+<div class="row mx-1">
+    <table class="table table-bordered shadow text-center">
+        <thead class="table-dark">
 
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Books</th>
+                <th scope="col">CategoryDescription</th>
+                <th width="130" scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+            }
             @foreach (var category in Model)
             {
-                <div class="card-header">@category.Name</div>
-                <div class="card-body">
-                    @if (category.Books.Any())
-                    {
-                        @foreach (var book in category.Books.Take(5))
-                        {
-                            <p class="card-text">@book.Code-@book.Name</p>
-                        }
-                    }
+                <tr>
+                    <th scope="row">@counter</th>
 
-                </div>
+                    <td>@category.Name</td>
+                    <td>@category.Books</td>
+                    <td>@category.CategoryDescription</td>
+                
+                    <td>
+                        
+                        <a asp-action="EditCategory" asp-route-id="@category.Id" class="btn btn-sm btn-circle btn-primary"><i class="fa-light fa-pen-to-square"></i></a>
+                        <a onclick="return confirm('Are you sure to delete?')" asp-action="DeleteCategory" asp-route-id="@category.Id" class="btn btn-sm btn-circle btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+
+                counter++;
             }
-        </div>
-    }
+        </tbody>
+    </table>
+</div>
+
+
+
+

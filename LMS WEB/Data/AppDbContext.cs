@@ -26,11 +26,11 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<BookImage> BookImages { get; set; }
 
-    public virtual DbSet<Operation> Operations { get; set; }
-
     public virtual DbSet<Reader> Readers { get; set; }
 
     public virtual DbSet<VwBook> VwBooks { get; set; }
+
+    public virtual DbSet<VwBookCategory> VwBookCategories { get; set; }
 
     public virtual DbSet<VwOperation> VwOperations { get; set; }
 
@@ -82,15 +82,6 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Book).WithMany(p => p.BookImages).HasConstraintName("FK__BookImage__BookI__6D0D32F4");
         });
 
-        modelBuilder.Entity<Operation>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Operatio__3214EC0768B37796");
-
-            entity.Property(e => e.OperationDate).HasDefaultValueSql("(getdate())");
-
-            entity.HasOne(d => d.Book).WithMany(p => p.Operations).HasConstraintName("FK__Operation__BookI__6E01572D");
-        });
-
         modelBuilder.Entity<Reader>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Readers__3214EC07113456E5");
@@ -101,6 +92,11 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<VwBook>(entity =>
         {
             entity.ToView("VwBooks");
+        });
+
+        modelBuilder.Entity<VwBookCategory>(entity =>
+        {
+            entity.ToView("VwBookCategory");
         });
 
         modelBuilder.Entity<VwOperation>(entity =>
