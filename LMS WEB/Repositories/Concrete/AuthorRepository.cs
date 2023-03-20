@@ -1,6 +1,8 @@
 ﻿using LMS_WEB.Data;
 using LMS_WEB.Models.DbModels;
 using LMS_WEB.Repositories.Abstract;
+using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace LMS_WEB.Repositories.Concrete
 {
@@ -13,10 +15,10 @@ namespace LMS_WEB.Repositories.Concrete
         }
 
 
-        //public async Task<List<VwAuthor>> GetAllAsync()
-        //{
-        //    return await _appDbContext.VwAuthors.ToListAsync();
-        //}
+        public async Task<List<VwAuthor>> GetAllAsync()
+        {
+            return await _appDbContext.VwAuthors.ToListAsync();
+        }
 
         public async Task<Author> GetByIdAsync(int id)
         {
@@ -31,12 +33,10 @@ namespace LMS_WEB.Repositories.Concrete
             return author.Id;
         }
 
-        public void Edit(Author author, int id)
+        public void Edit(Author author)
         {
-            var authorData = _appDbContext.Authors.Find(id);
-            authorData.Name = author.Name;
-
-            _appDbContext.Authors.Update(authorData);
+            
+            _appDbContext.Authors.Update(author);
             _appDbContext.SaveChanges();
         }
 

@@ -1,0 +1,17 @@
+﻿@model AddOrEditAuthorViewModel
+
+@{
+    ViewData["Title"] = "Edit author";
+}
+
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Edit author</h1>
+</div>
+
+<form method="post" asp-action="EditAuthor" enctype="multipart/form-data">
+    <partial name="_AddOrEditAuthorPartial" model="@Model" />
+
+</form>
+

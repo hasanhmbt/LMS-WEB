@@ -1,0 +1,58 @@
+﻿@model AddOrEditAuthorViewModel
+
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Name">Code</label>
+            <input asp-for="Name" class="form-control" placeholder="Enter Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Surname">Surname</label>
+            <input type="text" asp-for="Surname" class="form-control" placeholder="Enter Surname">
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            @*<span asp-validation-for="CategoryDescription" class="text-danger"></span>*@
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Files</label>
+            <input type="file" class="form-control-file" multiple name="FormFiles" asp-for="FormFiles">
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Birthdate">Born Date</label>
+            <input asp-for="Birthdate" class="form-control">
+            <span asp-validation-for="Birthdate" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mx-4 text-danger" asp-validation-summary="ModelOnly"></div>
+
+<div class="btn-group  mx-4  float-end">
+    <a class="btn btn-outline-danger me-2" asp-action="Index">Cancel</a>
+    <button type="submit" class="btn btn-success me-2"><i class="fa-regular fa-check"></i> Save</button>
+</div>

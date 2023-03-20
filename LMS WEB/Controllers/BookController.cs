@@ -134,7 +134,7 @@ namespace LMS_WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> EditBook(AddOrEditBookViewModel model)
         {
-            ViewBag.companies = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+
 
             if (!ModelState.IsValid)
                 return View(model);
@@ -160,7 +160,11 @@ namespace LMS_WEB.Controllers
 
             foreach (var result in results)
             {
-                bookImages.Add(new BookImage { BookId = model.Id, FileName = result.FileName, FilePath = result.FilePath });
+                bookImages.Add(new BookImage { 
+                    BookId = model.Id, 
+                    FileName = result.FileName, 
+                    FilePath = result.FilePath 
+                });
             }
 
             if (bookImages.Count > 0)

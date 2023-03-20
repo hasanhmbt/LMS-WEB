@@ -21,4 +21,6 @@ public partial class VwAuthor
     public DateTime? Birthdate { get; set; }
 
     public int? Books { get; set; }
+
+    public string? Description { get; set; }
 }

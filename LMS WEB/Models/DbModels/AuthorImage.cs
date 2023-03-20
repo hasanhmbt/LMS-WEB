@@ -17,7 +17,7 @@ public partial class AuthorImage
     public string? FileName { get; set; }
 
     [StringLength(300)]
-    public string? FilePaht { get; set; }
+    public string? FilePath { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime? CreateDate { get; set; }

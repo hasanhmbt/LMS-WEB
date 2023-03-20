@@ -46,7 +46,12 @@ namespace LMS_WEB.Controllers
         public async Task<IActionResult> EditCategory(int id)
         {
             var category = await _categoryRepository.GetByIdAsync(id);
-            return View(new AddOrEditCategoryViewModel { Id = category.Id, Name = category.Name, CategoryDescription = category.CategoryDescription });
+            return View(new AddOrEditCategoryViewModel { 
+
+                Id = category.Id,
+                Name = category.Name,
+                CategoryDescription = category.CategoryDescription 
+            });
         }
 
 
