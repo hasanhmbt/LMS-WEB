@@ -1,0 +1,75 @@
+﻿@{
+    Layout = null;
+}
+
+@model LoginViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login - OMS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/login/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!--===============================================================================================-->
+    <link href="~/lib/fontawesome v6 pro/assets/css/all.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/login/fonts/iconic/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/login/css/main.css" rel="stylesheet" />
+    <link href="~/login/css/util.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter" id="contentt">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form method="post" asp-action="Login" class="login100-form validate-form" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]">
+                    <input type="hidden" name="returnUrl" />
+                    <span class="login100-form-title p-b-26" id="sp">
+                        Order Management System
+                    </span>
+
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" type="text" asp-for="UserName">
+                        <span class="focus-input100" data-placeholder="Username"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input class="input100" type="password" asp-for="Password">
+                        <span class="focus-input100" data-placeholder="Password"></span>
+                    </div>
+
+                    <div class="mb-2 form-check fs-14 text-primary">
+                        <input type="checkbox" class="form-check-input" asp-for="RememberMe">
+                        <label class="form-check-label" asp-for="RememberMe">Remember me</label>
+                    </div>
+
+                    <div class="fs-14 text-danger row" asp-validation-summary="All"></div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button type="submit" class="login100-form-btn">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/login/js/main.js"></script>
+</body>
+</html>

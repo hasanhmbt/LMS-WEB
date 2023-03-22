@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Access denied</title>
+    <link href="~/css/forbidden-page.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/lib/fontawesome v6 pro/assets/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- partial:index.partial.html -->
+    <div class="lock"></div>
+    <div class="message">
+        <h1>Access to this page is restricted</h1>
+        <p>Please check with the site admin if you believe this is a mistake.</p>
+        <a href="#" onClick="backAway()"><i class="fa-regular fa-arrow-left"></i> Back</a>
+    </div>
+    <!-- partial -->
+
+    <script>
+        function backAway() {
+            //if it was the first page
+            if (history.length === 1) {
+                window.location = "/"
+            } else {
+                history.back();
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,59 @@
+﻿@model List<AppUser>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Users</h1>
+    <a asp-action="CreateUser" class="d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm">Create <i class="fa-light fa-plus"></i></a>
+</div>
+
+<div class="row mx-1">
+    <table class="table table-bordered shadow text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Firstname</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th width="70" scope="col">Image</th>
+                <th width="100" scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+            }
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <th scope="row">@counter</th>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        @if (string.IsNullOrEmpty(user.ImagePath))
+                        {
+                            <img class="img-profile rounded-circle" width="30" src="/img/undraw_profile.svg" asp-append-version="true">
+                        }
+                        else
+                        {
+                            <img class="img-profile rounded-circle" width="30" src="@user.ImagePath" asp-append-version="true">
+                        }
+                    </td>
+
+                    <td>
+                        <a asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-sm btn-circle btn-primary"><i class="fa-light fa-pen-to-square"></i></a>
+                        <a onclick="return confirm('Are you sure to delete?')" asp-action="DeleteUser" asp-route-id="@user.Id" class="btn btn-sm btn-circle btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+
+                counter++;
+            }
+        </tbody>
+    </table>
+</div>

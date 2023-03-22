@@ -6,7 +6,7 @@ using LMS_WEB.Tools;
 using LMS_WEB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OMS_Web.Models;
+using LMS_WEB.Models;
 
 namespace LMS_WEB.Controllers
 {

@@ -1,4 +1,4 @@
-﻿namespace OMS_Web.Models
+﻿namespace LMS_WEB.Models
 {
     public class FileUploadResult
     {

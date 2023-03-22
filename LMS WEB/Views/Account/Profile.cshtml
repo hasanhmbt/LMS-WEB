@@ -1,0 +1,89 @@
+﻿@using LMS_WEB.ViewModel;
+@model ProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<form method="post" asp-action="SaveProfile" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="d-flex justify-content-center mb-2">
+        @if (Model == null || string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img class="img-profile rounded-circle" width="170" src="/img/undraw_profile.svg" asp-append-version="true">
+        }
+        else
+        {
+            <img class="img-profile rounded-circle" width="170" src="@Model.ImagePath" asp-append-version="true">
+        }
+
+    </div>
+
+    <h5 class="text-center mb-1">@Model.Role</h5>
+    <hr />
+    <input type="hidden" asp-for="@Model.ImagePath" />
+
+    <div class="row mx-4">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="FirstName">Firstname</label>
+                <input asp-for="FirstName" class="form-control form-control-sm" placeholder="Enter Firstname">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="LastName">Lastname</label>
+                <input type="text" asp-for="LastName" class="form-control form-control-sm" placeholder="Enter Lastname">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mx-4">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input type="text" asp-for="UserName" class="form-control form-control-sm" placeholder="Enter Username">
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control form-control-sm" placeholder="Enter Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mx-4">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Image</label>
+                <input type="file" class="form-control-file form-control-sm" name="UserImage" asp-for="UserImage">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-4 text-danger" asp-validation-summary="ModelOnly"></div>
+
+    <div class="btn-group  mx-4 float-end mt-0">
+        <button type="submit" class="btn btn-success me-2"><i class="fa-regular fa-check"></i> Save</button>
+    </div>
+
+</form>
+
+@if (Convert.ToBoolean(TempData["success"]))
+{
+    @section Scripts{
+    <script asp-append-version="true">
+        showSuccessAlert('@TempData["message"]');
+    </script>
+    }
+}

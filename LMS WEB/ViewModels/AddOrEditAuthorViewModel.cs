@@ -19,7 +19,7 @@ namespace LMS_WEB.ViewModels
         [StringLength(150)]
         public string? Surname { get; set; }
 
-        [Required(ErrorMessage = "Choose auhtor birthdate!")]
+        [Required(ErrorMessage = "Choose author born date!")]
         [Column(TypeName = "date")]
         public DateTime? Birthdate { get; set; }
 

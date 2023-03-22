@@ -1,0 +1,17 @@
+﻿@model AddOrEditRoleViewModel
+
+
+<div class="col-lg-6 row mx-4">
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input type="text" asp-for="Name" class="form-control" placeholder="Enter name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group btn-group">
+        <a class="btn btn-outline-danger w-50 me-2" asp-action="Roles">Cancel</a>
+        <button type="submit" class="btn w-50 btn-success"><i class="fa-regular fa-check"></i> Save</button>
+    </div>
+</div>
+
+<div class="col-lg-6 row mx-4 text-danger" asp-validation-summary="ModelOnly"></div>
+

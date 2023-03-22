@@ -1,0 +1,77 @@
+﻿@model AddOrEditUserViewModel
+
+<div class="d-flex justify-content-center mb-3">
+    @if (Model==null || string.IsNullOrEmpty(Model.ImagePath))
+    {
+        <img class="img-profile rounded-circle" width="170" src="/img/undraw_profile.svg" asp-append-version="true">
+    }
+    else
+    {
+        <img class="img-profile rounded-circle" width="170" src="@Model.ImagePath" asp-append-version="true">
+    }
+</div>
+
+<input type="hidden" asp-for="@Model.ImagePath"/>
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="FirstName">Firstname</label>
+            <input asp-for="FirstName" class="form-control" placeholder="Enter Firstname">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="LastName">Lastname</label>
+            <input type="text" asp-for="LastName" class="form-control" placeholder="Enter Lastname">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="UserName"></label>
+            <input type="text" asp-for="UserName" class="form-control" placeholder="Enter Username">
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" class="form-control" placeholder="Enter Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="RoleId">Role</label>
+            <select asp-for="RoleId" class="form-control" asp-items="@ViewBag.roles">
+                <option value="">--Select role--</option>
+            </select>
+            <span asp-validation-for="RoleId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label>Image</label>
+            <input type="file" class="form-control-file" accept="image/*" name="UserImage" asp-for="UserImage">
+        </div>
+    </div>
+
+</div>
+
+<div class="row mx-4 text-danger" asp-validation-summary="ModelOnly"></div>
+
+<div class="btn-group  mx-4  float-end">
+    <a class="btn btn-outline-danger me-2" asp-asp-controller="Administration" asp-action="Users">Cancel</a>
+    <button type="submit" class="btn btn-success me-2"><i class="fa-regular fa-check"></i> Save</button>
+</div>

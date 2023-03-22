@@ -1,6 +1,9 @@
+using LMS_Web.Data;
+using LMS_WEB.Models.IdentityModels;
 using LMS_WEB.Data;
 using LMS_WEB.Repositories.Abstract;
 using LMS_WEB.Repositories.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +19,19 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("default"));
 });
+
+builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("identiy"));
+});
+
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireDigit = false;
+}).AddEntityFrameworkStores<AppIdentityDbContext>();
 
 
 var app = builder.Build();

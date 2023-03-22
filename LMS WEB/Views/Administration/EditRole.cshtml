@@ -1,0 +1,16 @@
+﻿@model AddOrEditRoleViewModel
+
+@{
+    ViewData["Title"] = "Edit role";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Edit role</h1>
+</div>
+
+<form method="post" asp-action="EditRole">
+
+    <partial name="_AddOrEditRolePartial" model="@Model" />
+
+</form>

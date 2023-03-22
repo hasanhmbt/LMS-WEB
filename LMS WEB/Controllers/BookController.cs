@@ -7,7 +7,7 @@ using LMS_WEB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using OMS_Web.Models;
+using LMS_WEB.Models;
 
 namespace LMS_WEB.Controllers
 {
