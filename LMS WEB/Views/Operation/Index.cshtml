@@ -1,0 +1,78 @@
+﻿@model List<VwOperation>
+
+
+
+@{
+    ViewData["Title"] = " Operations";
+}
+ 
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Operations</h1>
+    <a asp-action="AddOperation" class="d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i class="fas fa-plus"></i> Add </a>
+</div>
+
+
+
+ 
+
+
+<div class="row">
+    <form method="post" asp-action="Index">
+        <div class="row mx-1 mb-2">
+            <input type="hidden" value="@ViewBag.operationId" name="OperationId" />
+            <input type="text" value="@ViewBag.searchText" class=" col-2 form-control form-control-sm" name="searchText" placeholder="Enter name" />
+            <button class="btn btn-sm btn-outline-primary shadow-sm w-auto ml-1"><i class="fa-regular fa-magnifying-glass"></i></button>
+
+        </div>
+    </form>
+</div>
+
+
+
+<div class="row mx-1">
+    <table class="table table-bordered shadow text-center">
+        <thead class="table-dark">
+
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Book</th>
+                <th scope="col">Reader</th>
+                <th scope="col">UserName</th>
+                <th scope="col">AcceptStatus</th>
+                <th scope="col">OperationDate</th>
+                <th width="130" onmouseover="" scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+            }
+            @foreach (var operation in Model)
+            {
+                <tr>
+                    <th scope="row">@counter</th>
+
+                    <td>@operation.Book</td>
+                    <td>@operation.Reader</td>
+                    <td>@operation.UserName</td>
+                    <td>@operation.AcceptStatus</td>
+                    <td>@operation.OperationDate</td>
+                    
+                    <td>
+
+                        <a asp-action="EditOperation" asp-route-id="@operation.Id" class="btn btn-sm btn-circle btn-primary"><i class="fa-light fa-pen-to-square"></i></a>
+                        <a onclick="return confirm('Are you sure to delete?')" asp-action="DeleteOperation" asp-route-id="@operation.Id" class="btn btn-sm btn-circle btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+
+                counter++;
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+ 

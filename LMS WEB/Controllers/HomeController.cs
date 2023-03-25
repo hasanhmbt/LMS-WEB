@@ -18,6 +18,7 @@ namespace LMS_WEB.Controllers
             return View();
         }
 
+       
         public IActionResult Privacy()
         {
             return View();

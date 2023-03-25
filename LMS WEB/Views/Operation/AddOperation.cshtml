@@ -1,0 +1,18 @@
+﻿@model AddOrEditOperationViewModel
+ 
+@{
+    ViewData["Title"] = "Add operation";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Add operation</h1>
+</div>
+
+
+<form method="post" asp-action="AddOperation" , asp-controller="Operation" enctype="multipart/form-data">
+
+    <partial name="_AddOrEditOperationPartial" model="@Model" />
+
+</form>
+

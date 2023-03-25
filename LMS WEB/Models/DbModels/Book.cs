@@ -39,4 +39,7 @@ public partial class Book
     [ForeignKey("CategoryId")]
     [InverseProperty("Books")]
     public virtual BookCategory? Category { get; set; }
+
+    [InverseProperty("Book")]
+    public virtual ICollection<Operation> Operations { get; } = new List<Operation>();
 }

@@ -1,0 +1,20 @@
+﻿@model AddOrEditReaderViewModel
+
+
+
+@{
+    ViewData["Title"] = "Add reader";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Add reader</h1>
+</div>
+
+
+<form method="post" asp-action="AddReader" , asp-controller="Reader" enctype="multipart/form-data">
+
+    <partial name="_AddOrEditReaderPartial" model="@Model" />
+
+</form>
+

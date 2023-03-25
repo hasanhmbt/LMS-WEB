@@ -11,7 +11,7 @@ using LMS_WEB.Tools;
 
 namespace OMS_Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AdministrationController : Controller
     {
         private readonly AppIdentityDbContext _identityDbContext;

@@ -1,0 +1,42 @@
+﻿@model AddOrEditOperationViewModel
+
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="BookId">Book</label>
+            <select asp-for="BookId" class="form-control" asp-items="@ViewBag.Books">
+                <option value="">--Select book--</option>
+            </select>
+            <span asp-validation-for="BookId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="ReaderId">Reader</label>
+            <select asp-for="ReaderId" class="form-control" asp-items="@ViewBag.Readers">
+                <option value="">--Select reader--</option>
+            </select>
+            <span asp-validation-for="ReaderId" class="text-danger"></span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row mx-4">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="OperationDate">Order date</label>
+            <input asp-for="OperationDate" class="form-control">
+            <span asp-validation-for="OperationDate" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row mx-4 text-danger" asp-validation-summary="ModelOnly"></div>
+
+<div class="btn-group  mx-4  float-end">
+    <a class="btn btn-outline-danger me-2" asp-action="Index">Cancel</a>
+    <button type="submit" class="btn btn-success me-2"><i class="fa-regular fa-check"></i> Save</button>
+</div>

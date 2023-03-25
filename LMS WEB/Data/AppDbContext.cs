@@ -26,13 +26,21 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<BookImage> BookImages { get; set; }
 
+    public virtual DbSet<Month> Months { get; set; }
+
+    public virtual DbSet<Operation> Operations { get; set; }
+
     public virtual DbSet<Reader> Readers { get; set; }
+
+    public virtual DbSet<ReaderImage> ReaderImages { get; set; }
 
     public virtual DbSet<VwAuthor> VwAuthors { get; set; }
 
     public virtual DbSet<VwBook> VwBooks { get; set; }
 
     public virtual DbSet<VwBookCategory> VwBookCategories { get; set; }
+
+    public virtual DbSet<VwOperation> VwOperations { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -82,11 +90,33 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Book).WithMany(p => p.BookImages).HasConstraintName("FK__BookImage__BookI__6D0D32F4");
         });
 
+        modelBuilder.Entity<Operation>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Operatio__3214EC07E639A4AD");
+
+            entity.Property(e => e.AcceptStatus).HasDefaultValueSql("((1))");
+            entity.Property(e => e.OperationDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.Book).WithMany(p => p.Operations).HasConstraintName("FK__Operation__BookI__4F47C5E3");
+
+            entity.HasOne(d => d.Reader).WithMany(p => p.Operations).HasConstraintName("FK__Operation__Reade__503BEA1C");
+        });
+
         modelBuilder.Entity<Reader>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Readers__3214EC07113456E5");
 
+            entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Status).HasDefaultValueSql("((1))");
+        });
+
+        modelBuilder.Entity<ReaderImage>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__ReaderIm__3214EC07AD5E776E");
+
+            entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.Reader).WithMany(p => p.ReaderImages).HasConstraintName("FK__ReaderIma__Reade__3E1D39E1");
         });
 
         modelBuilder.Entity<VwAuthor>(entity =>
@@ -102,6 +132,11 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<VwBookCategory>(entity =>
         {
             entity.ToView("VwBookCategory");
+        });
+
+        modelBuilder.Entity<VwOperation>(entity =>
+        {
+            entity.ToView("VwOperations");
         });
 
         OnModelCreatingPartial(modelBuilder);

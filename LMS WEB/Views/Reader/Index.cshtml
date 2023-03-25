@@ -1,0 +1,74 @@
+﻿@model List<Reader>
+
+
+
+@{
+    ViewData["Title"] = "Readers";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Readers</h1>
+    <a asp-action="AddReader" class="d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i class="fas fa-plus"></i> Add </a>
+</div>
+
+
+
+
+<div class="row">
+    <form method="post" asp-action="Index">
+        <div class="row mx-1 mb-2">
+            <input type="hidden" value="@ViewBag.category" name="category" />
+            <input type="hidden" value="@ViewBag.categoryId" name="categoryId" />
+            <input type="text" value="@ViewBag.searchText" class=" col-2 form-control form-control-sm" name="searchText" placeholder="Enter name" />
+            <button class="btn btn-sm btn-outline-primary shadow-sm w-auto ml-1"><i class="fa-regular fa-magnifying-glass"></i></button>
+        </div>
+    </form>
+</div>
+
+
+
+<div class="row mx-1">
+    <table class="table table-bordered shadow text-center">
+        <thead class="table-dark">
+
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">PhoneNum</th>
+                <th scope="col">Email status</th>
+                <th scope="col">Created date</th>
+                <th width="130" scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+            }
+            @foreach (var reader in Model)
+            {
+                <tr>
+                    <th scope="row">@counter</th>
+
+                    <td>@reader.Name</td>
+                    <td>@reader.Email</td>
+                    <td>@reader.PhoneNum</td>
+                    <td>@reader.EmailStatus</td>
+                    <td>@reader.CreateDate?.ToString("dd-MM-yyyy | hh:mm ")</td>
+                    <td>
+                        <a asp-action="ReaderFiles" title="Reader files" asp-route-id="@reader.Id" class="btn btn-sm btn-circle btn-warning"><i class="fa-thin fa-file-image"></i></a>
+                        <a asp-action="EditReader" asp-route-id="@reader.Id" class="btn btn-sm btn-circle btn-primary"><i class="fa-light fa-pen-to-square"></i></a>
+                        <a onclick="return confirm('Are you sure to delete?')" asp-action="DeleteReader" asp-route-id="@reader.Id" class="btn btn-sm btn-circle btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+
+                counter++;
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+

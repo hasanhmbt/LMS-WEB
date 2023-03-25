@@ -17,8 +17,12 @@ namespace LMS_WEB.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly AppDbContext _appDbContext;
 
-        public AuthorController(IAuthorRepository authorRepository, IWebHostEnvironment webHostEnvironment, AppDbContext appDbContext)
+        public AuthorController(
+            IAuthorRepository authorRepository,
+            IWebHostEnvironment webHostEnvironment,
+            AppDbContext appDbContext)
         {
+
             _authorRepository = authorRepository;
             _webHostEnvironment = webHostEnvironment;
             _appDbContext = appDbContext;
@@ -34,7 +38,7 @@ namespace LMS_WEB.Controllers
 
 
 
-    
+
         public IActionResult AddAuthor(AddOrEditAuthorViewModel model)
         {
 
