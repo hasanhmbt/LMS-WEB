@@ -29,10 +29,23 @@ namespace LMS_WEB.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index(int authorId )
+        {   
+            ViewBag.AuthorId = authorId;
+             
+            var authors = await _authorRepository.GetAllAsync(authorId);
+            return View(authors);
+        }
 
-        public async Task<IActionResult> Index()
+
+        [HttpPost]
+        public async Task<IActionResult> Index(int authorId, string searchText)
         {
-            var authors = await _authorRepository.GetAllAsync();
+            ViewBag.AuthorId = authorId;
+            ViewBag.SearchText = searchText;
+
+            var authors = await _authorRepository.GetAllAsync(authorId, searchText);
             return View(authors);
         }
 

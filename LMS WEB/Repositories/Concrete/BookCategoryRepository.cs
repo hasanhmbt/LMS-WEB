@@ -6,7 +6,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace LMS_WEB.Repositories.Concrete
 {
-    public class BookCategoryRepository:IBookCategoryRepository
+    public class BookCategoryRepository : IBookCategoryRepository
     {
 
         private readonly AppDbContext _appDbContext;
@@ -16,9 +16,12 @@ namespace LMS_WEB.Repositories.Concrete
         }
 
 
-        public async Task<List<VwBookCategory>> GetAllAsync()
+        public async Task<List<VwBookCategory>> GetAllAsync(int categoryId, string searchText = "")
         {
-            return await _appDbContext.VwBookCategories.ToListAsync();
+            //if (  categoryId > 0 &&   searchText != "")
+                return await _appDbContext.VwBookCategories.Where(b => b.Name.Contains(searchText)).OrderByDescending(b => b.Id).ToListAsync();
+            //else
+            //    return await _appDbContext.VwBookCategories.ToListAsync();
         }
 
         public async Task<BookCategory> GetByIdAsync(int id)
@@ -50,7 +53,7 @@ namespace LMS_WEB.Repositories.Concrete
             _appDbContext.SaveChanges();
         }
 
-        
+
 
     }
 }

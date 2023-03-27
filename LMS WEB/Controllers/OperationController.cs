@@ -70,7 +70,8 @@ namespace LMS_WEB.Controllers
             {
                 BookId = model.BookId,
                 ReaderId = model.ReaderId,
-                UserId = userId
+                UserId = userId,
+                OrderedBooks =+1
 
             });
 

@@ -15,9 +15,10 @@ namespace LMS_WEB.Repositories.Concrete
         }
 
 
-        public async Task<List<VwAuthor>> GetAllAsync()
+        public async Task<List<VwAuthor>> GetAllAsync(int authorId, string searchText = "")
         {
-            return await _appDbContext.VwAuthors.ToListAsync();
+            return await _appDbContext.VwAuthors.Where(b => b.Name.Contains(searchText)).OrderByDescending(b => b.Id).ToListAsync();
+
         }
 
         public async Task<Author> GetByIdAsync(int id)

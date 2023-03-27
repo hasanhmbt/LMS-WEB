@@ -29,6 +29,8 @@ public partial class Book
 
     public int? AuthorId { get; set; }
 
+    public string? Description { get; set; }
+
     [ForeignKey("AuthorId")]
     [InverseProperty("Books")]
     public virtual Author? Author { get; set; }

@@ -48,7 +48,7 @@ namespace LMS_Web.Controllers
                         if (await _userManager.IsInRoleAsync(user, "Admin"))
                             return RedirectToAction("Index", "Home");
                         else
-                            return RedirectToAction("Sales", "Index");
+                            return RedirectToAction("Index", "Book");
                     }
                     else
                         return Redirect(returnUrl);

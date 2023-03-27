@@ -11,7 +11,7 @@ namespace LMS_WEB.ViewModels
         [StringLength(100)]
         public string? Name { get; set; }
 
-        public string CategoryDescription { get; set; } = null!;
+        public string? CategoryDescription { get; set; } 
 
 
     }

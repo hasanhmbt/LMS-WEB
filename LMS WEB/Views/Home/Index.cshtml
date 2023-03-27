@@ -1,8 +1,181 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-  
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4 row">
+    <div class="col-sm-7">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    </div>
+    <div class="col-sm-5 d-flex justify-content-end">
+        <input type="date" id="beginDate" onchange="GetChartData()" class="d-sm-inline-block form-control form-control-sm col-sm-3 mr-1" /> -
+        <input type="date" id="endDate" onchange="GetChartData()" class="d-sm-inline-block form-control form-control-sm col-sm-3 ml-1" />
+    </div>
 </div>
+
+
+<!-- Content Row -->
+<div class="row">
+
+
+
+    <!-- Oredered Books -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Oredered Books
+                        </div>
+                        <div id="soldProducts" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-book-user fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Readers -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Readers
+                        </div>
+                        <div id="productVarieties" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-book-open-reader fa-2x text-gray-300"></i> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- All Books -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            All Books
+                        </div>
+                        <div id="allProducts" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-shelves fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Authors -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Authors
+                        </div>
+                        <div id="allProducts" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                    </div>
+                    <div class="col-auto">
+                          <i class="fa-duotone fa-feather fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+@section Scripts{
+    <script src="~/vendor/chartjs/chartjs.min.js"></script>
+
+
+    <script asp-append-version="true">
+
+        let currentDate = new Date();
+
+        document.getElementById('endDate').valueAsDate = currentDate;
+
+        currentDate.setFullYear(currentDate.getFullYear() - 1);
+        document.getElementById('beginDate').valueAsDate = currentDate;
+
+        GetChartData();
+
+        let areaLabels = [];
+        let areaDataSet = [];
+
+        let pieDataLabels = [];
+        let pieDataSet = [];
+
+
+        let myPieChart = null;
+        let myLineChart = null;
+
+        function GetChartData() {
+            let beginDate = document.getElementById('beginDate').value;
+            let endDate = document.getElementById('endDate').value;
+
+            $.ajax({
+                url: "/Home/GetChartData?beginDate=" + beginDate + '&&endDate=' + endDate,
+                method: "Get"
+            }).done(function (res) {
+                console.log(res)
+
+                //cards
+                if (res.dashboardCounts != null) {
+                    document.getElementById('productVarieties').innerHTML = res.dashboardCounts.productVarieties;
+                    document.getElementById('allProducts').innerHTML = res.dashboardCounts.allProducts;
+                    document.getElementById('soldProducts').innerHTML = res.dashboardCounts.soldProducts;
+                    document.getElementById('totalEarnings').innerHTML = '$ ' + res.dashboardCounts.totalEarnings;
+                }
+
+                //line chart
+                if (res.totalEarnings != null) {
+                    areaLabels = res.totalEarnings.months;
+                    areaDataSet = res.totalEarnings.totals
+
+                    if (myLineChart != null) {
+                        myLineChart.destroy();
+                    }
+
+                    makeLineChart();
+                }
+
+
+                //doughut chart
+                if (res.bestSellingProduct != null) {
+                    pieDataLabels = res.bestSellingProduct.productNames;
+                    pieDataSet = res.bestSellingProduct.productCounts
+
+                    if (myPieChart != null) {
+                        myPieChart.destroy();
+                    }
+
+                    makeDoughnutChart();
+                }
+            });
+        }
+
+    </script>
+
+    <script src="~/vendor/chartjs/line-chart.js" asp-append-version="true"></script>
+    <script src="~/vendor/chartjs/doughnut-chart.js" asp-append-version="true"></script>
+}

@@ -4,7 +4,7 @@ namespace LMS_WEB.Repositories.Abstract
 {
     public interface IAuthorRepository
     {
-        Task<List<VwAuthor>> GetAllAsync();
+        Task<List<VwAuthor>> GetAllAsync(int authorId,string searchText="");
 
         Task<Author> GetByIdAsync(int id);
         int Add(Author author);

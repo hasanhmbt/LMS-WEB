@@ -5,7 +5,7 @@ namespace LMS_WEB.Repositories.Abstract
     public interface IBookRepository
     {
 
-        Task<List<VwBook>> GetAllAsync(int companyId, string searchText = "");
+        Task<List<VwBook>> GetAllAsync(int bookId, string searchText = "");
 
         Task<Book> GetByIdAsync(int? id);
         int Add(Book book);

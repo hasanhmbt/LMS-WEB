@@ -1,0 +1,34 @@
+﻿@model List<Book>
+
+
+
+<div class="container mx-auto mt-4">
+    <div class="row">
+
+        @if (Model.Any())
+        {
+            @foreach (var book in Model)
+            {
+
+                <div class="col-md-3   mb-3 ">
+                    <div class="card" style="width: 18rem">
+                        @*<img src="@book.BookImages"
+                             class="card-img-top"
+                             asp-append-version="true" />*@
+                        <img src="~/images/bookimg1.jpg" class="card-img-top" />
+                        <div class="card-body">
+                            <h5 class="card-title">@book.Name</h5>
+                            <p class="card-text">
+                                Some quick example text to build on the card title and make up the
+                                bulk of the card's content.
+                            </p>
+                            <a href="#" class="btn mr-2"><i class="fas fa-link"></i> Visit Site</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+        }
+    </div>
+</div>

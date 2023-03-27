@@ -23,6 +23,8 @@ public partial class Operation
     [Column(TypeName = "datetime")]
     public DateTime? OperationDate { get; set; }
 
+    public int? OrderedBooks { get; set; }
+
     [ForeignKey("BookId")]
     [InverseProperty("Operations")]
     public virtual Book? Book { get; set; }

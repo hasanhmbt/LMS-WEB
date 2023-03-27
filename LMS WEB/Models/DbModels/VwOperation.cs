@@ -9,13 +9,12 @@ namespace LMS_WEB.Models.DbModels;
 [Keyless]
 public partial class VwOperation
 {
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     [StringLength(100)]
     public string? Book { get; set; }
 
-    [StringLength(100)]
-    public string? Reader { get; set; }
+    public string Reader { get; set; } = null!;
 
     [StringLength(256)]
     public string? UserName { get; set; }

@@ -1,10 +1,12 @@
 ﻿using LMS_WEB.Data;
 using LMS_WEB.Repositories.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMS_WEB.Controllers
 {
-    public class SiteController : Controller
+    public class SiteBookController : Controller
     {
 
         private readonly IBookRepository _bookRepository;
@@ -12,7 +14,7 @@ namespace LMS_WEB.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IBookCategoryRepository _categoryRepository;
 
-        public SiteController(
+        public SiteBookController(
             IBookRepository bookRepository,
             AppDbContext appDbContext,
             IWebHostEnvironment webHostEnvironment,
@@ -27,9 +29,12 @@ namespace LMS_WEB.Controllers
 
         }
 
-        public IActionResult Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var book = await _appDbContext.Books.ToListAsync();
+            
+            return View("~/Views/Site/Books.cshtml", book);
         }
     }
 }

@@ -19,6 +19,8 @@ public partial class VwBook
 
     public int? AuthorId { get; set; }
 
+    public int? Count { get; set; }
+
     [StringLength(302)]
     public string Author { get; set; } = null!;
 
@@ -27,12 +29,10 @@ public partial class VwBook
 
     public int? CategoryId { get; set; }
 
-    public int? Count { get; set; }
-
-    public int? Remainder { get; set; }
-
     public bool Status { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime? CreateDate { get; set; }
+
+    public int? Remainder { get; set; }
 }

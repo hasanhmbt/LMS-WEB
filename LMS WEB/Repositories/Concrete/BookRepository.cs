@@ -36,12 +36,12 @@ namespace LMS_WEB.Repositories.Concrete
 
 
 
-        public async Task<List<VwBook>> GetAllAsync(int categoryId, string searchText = "")
+        public async Task<List<VwBook>> GetAllAsync(int boookId, string searchText = "")
         {
-            if (categoryId != null && categoryId > 0)
-                return await _appDbContext.VwBooks.Where(b => b.CategoryId == categoryId && b.Name.Contains(searchText)).OrderByDescending(b => b.Id).ToListAsync();
-            else
-                return await _appDbContext.VwBooks.Where(b => b.Name.Contains(searchText)).OrderByDescending(b => b.Id).ToListAsync();
+            //if (boookId != null && boookId > 0  )
+                return await _appDbContext.VwBooks.Where(b =>b.Name.Contains(searchText)).OrderByDescending(b => b.Id).ToListAsync();
+            //else
+            //    return await _appDbContext.VwBooks.Where(b => b.Name.Contains(searchText)).OrderByDescending(b => b.Id).ToListAsync();
         }
 
         public async Task<Book>  GetByIdAsync(int? id)

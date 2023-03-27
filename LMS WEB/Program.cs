@@ -15,6 +15,7 @@ builder.Services.AddScoped<IBookCategoryRepository, BookCategoryRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
 builder.Services.AddScoped<IOperationRepository, OperationRepository>();
+builder.Services.AddScoped<ISiteRepository,  SiteRepository>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -25,6 +26,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddDbContext<AppIdentityDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("identiy"));
+});
+
+builder.Services.AddDbContext<AppFuncContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("default"));
 });
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -55,6 +61,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}");
+    pattern: "{controller=Site}/{action=Index}/{id?}");
 
 app.Run();

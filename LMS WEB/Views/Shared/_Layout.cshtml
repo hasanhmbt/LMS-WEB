@@ -14,7 +14,7 @@
     <title>@ViewData["Title"] - LMS</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
+    <link rel="icon" type="image/png" href="~/login/images/icons/favicon.ico" />
     <link href="~/lib/fontawesome v6 pro/assets/css/all.min.css" rel="stylesheet" />
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -38,23 +38,39 @@
         <ul class="navbar-nav bg-black sidebar sidebar-light accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Home" asp-action="Index">
-                <div class="sidebar-brand-icon ">
-                    <i class="fa-regular fa-book"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3"> Library </div>
-            </a>
+            @if ((await _userManager.IsInRoleAsync(user, "Admin")))
+            {
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Home" asp-action="Index">
+                    <div class="sidebar-brand-icon ">
+                        <i class="fa-regular fa-book"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3"> Library </div>
+                </a>
+            }
+            else
+            {
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Operation" asp-action="Index">
+                    <div class="sidebar-brand-icon ">
+                        <i class="fa-regular fa-book"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3"> Library </div>
+                </a>
+            }
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link " asp-controller="Home" asp-action="Index">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
+            @if ((await _userManager.IsInRoleAsync(user, "Admin")))
+            {
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+
+                <li class="nav-item active">
+                    <a class="nav-link " asp-controller="Home" asp-action="Index">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            }
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -100,26 +116,26 @@
                 </a>
             </li>
 
-            <!-- Nav Item - Readers -->
+            @*        <!-- Nav Item - Readers -->
             @if ((await _userManager.IsInRoleAsync(user, "Admin")))
             {
 
-                <li class="nav-item ">
-                    <a class="nav-link" asp-controller="Reader" asp-action="Index">
-                        <i class="fa-solid fa-user" style="color: #ffffff;"></i>
-                        <span>Readers</span>
-                    </a>
-                </li>
+            <li class="nav-item ">
+            <a class="nav-link" asp-controller="Reader" asp-action="Index">
+            <i class="fa-solid fa-user" style="color: #ffffff;"></i>
+            <span>Readers</span>
+            </a>
+            </li>
             }
             else
             {
-                <li class="nav-item disabled " onclick="return false">
-                    <a class="nav-link" asp-controller="Reader" asp-action="Index">
-                        <i class="fa-solid fa-user" style="color: #ff0000;"></i>
-                        <span>Readers</span>
-                    </a>
-                </li>
-            }
+            <li class="nav-item disabled " onclick="return false">
+            <a class="nav-link" asp-controller="Reader" asp-action="Index">
+            <i class="fa-solid fa-user" style="color: #ff0000;"></i>
+            <span>Readers</span>
+            </a>
+            </li>
+            }*@
 
             <!-- Nav Item - Orders -->
 
@@ -132,22 +148,48 @@
 
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fa-regular fa-book-user"></i>
-                    <span>Account operations</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        @* <h6 class="collapse-header">Login Screens:</h6>  *@
-                        <a class="collapse-item" asp-controller="Administration" asp-action="Roles">Roles</a>
-                        <a class="collapse-item" asp-controller="Administration" asp-action="Users">Users</a>
+            @if ((await _userManager.IsInRoleAsync(user, "Admin")))
+            {
+                <li class="nav-item ">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                       aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fa-regular fa-book-user"></i>
+                        <span>Account operations</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @* <h6 class="collapse-header">Login Screens:</h6>  *@
+                            <a class="collapse-item" asp-controller="Administration" asp-action="Roles">Roles</a>
+                            <a class="collapse-item" asp-controller="Administration" asp-action="Users">Users</a>
 
 
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            }
+            else
+            {
+
+                <li class="nav-item disabled" onclick=" return false">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                       aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fa-regular fa-book-user" style="color: #ff0000;"></i>
+                        <span>Account operations</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            @* <h6 class="collapse-header">Login Screens:</h6>  *@
+                            <a class="collapse-item" asp-controller="Administration" asp-action="Roles">Roles</a>
+                            <a class="collapse-item" asp-controller="Administration" asp-action="Users">Users</a>
+
+
+                        </div>
+                    </div>
+                </li>
+
+
+
+            }
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

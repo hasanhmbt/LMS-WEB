@@ -21,10 +21,25 @@ namespace LMS_WEB.Controllers
             _environment = webHostEnvironment;
         }
 
-
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int categoryId, string category)
         {
-           var categories = await _categoryRepository.GetAllAsync();
+            ViewBag.CategoryId = categoryId;
+            ViewBag.Category = category;
+
+            var categories = await _categoryRepository.GetAllAsync(categoryId);
+            return View(categories);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Index(int categoryId, string searchText, string category)
+        {
+            ViewBag.CategoryId = categoryId;
+            ViewBag.Category = category;
+            ViewBag.SearchText = searchText;
+
+            var categories = await _categoryRepository.GetAllAsync(categoryId, searchText);
             return View(categories);
         }
 
@@ -33,10 +48,10 @@ namespace LMS_WEB.Controllers
 
         public ActionResult AddCategory(AddOrEditCategoryViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return View(model);
 
-            int categoryId = _categoryRepository.Add(new BookCategory {Name =model.Name,CategoryDescription=model.CategoryDescription });
+            int categoryId = _categoryRepository.Add(new BookCategory { Name = model.Name, CategoryDescription = model.CategoryDescription });
 
             return RedirectToAction(nameof(Index));
 
@@ -46,11 +61,12 @@ namespace LMS_WEB.Controllers
         public async Task<IActionResult> EditCategory(int id)
         {
             var category = await _categoryRepository.GetByIdAsync(id);
-            return View(new AddOrEditCategoryViewModel { 
+            return View(new AddOrEditCategoryViewModel
+            {
 
                 Id = category.Id,
                 Name = category.Name,
-                CategoryDescription = category.CategoryDescription 
+                CategoryDescription = category.CategoryDescription
             });
         }
 
@@ -64,8 +80,8 @@ namespace LMS_WEB.Controllers
 
 
 
-            _categoryRepository.Edit(new BookCategory { Name = model.Name,  CategoryDescription = model.CategoryDescription }, model.Id);
-            
+            _categoryRepository.Edit(new BookCategory { Name = model.Name, CategoryDescription = model.CategoryDescription }, model.Id);
+
             //TempData["success"] = true;
             //TempData["message"] = "Company saved successfullly";
 

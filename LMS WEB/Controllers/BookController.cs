@@ -25,26 +25,26 @@ namespace LMS_WEB.Controllers
             _webHostEnvironment = webHostEnvironment;
             _bookRepository = bookRepository;
         }
-
+ 
 
         [HttpGet]
 
-        public async Task<IActionResult> Index(int categoryId, string category)
+        public async Task<IActionResult> Index(int bookId, string book)
         {
-            var books = await _bookRepository.GetAllAsync(categoryId);
-            ViewBag.Category = category;
-            ViewBag.CategoryId = categoryId;
+            var books = await _bookRepository.GetAllAsync(bookId);
+            ViewBag.book = book;
+            ViewBag.bookId = bookId;
 
             return View(books);
         }
 
         [HttpPost]
 
-        public async Task<IActionResult> Index(int categoryId, string category, string searchText)
+        public async Task<IActionResult> Index(int bookId, string book, string searchText)
         {
-            var books = await _bookRepository.GetAllAsync(categoryId);
-            ViewBag.Category = category;
-            ViewBag.CategoryId = categoryId;
+            var books = await _bookRepository.GetAllAsync(bookId, searchText);
+            ViewBag.book = book;
+            ViewBag.bookId = bookId;
             ViewBag.SearchText = searchText;
 
             return View(books);
@@ -61,8 +61,8 @@ namespace LMS_WEB.Controllers
 
         public async Task<IActionResult> AddBook()
         {
-            ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
-            ViewBag.authors = _appDbContext.Authors.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text =c.Name }).ToList();
+            ViewBag.authors = _appDbContext.Authors.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = $"{c.Name}-{c.Surname}" }).ToList();
 
             return View();
         }
@@ -73,7 +73,7 @@ namespace LMS_WEB.Controllers
         public ActionResult AddBook(AddOrEditBookViewModel model)
         {
             ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
-            ViewBag.authors = _appDbContext.Authors.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            ViewBag.authors = _appDbContext.Authors.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = $"{c.Name}-{c.Surname}" }).ToList();
             if (!ModelState.IsValid)
                 return View(model);
 
@@ -113,7 +113,7 @@ namespace LMS_WEB.Controllers
         public async Task<IActionResult> EditBook(int id)
         {
             ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
-            ViewBag.authors = _appDbContext.Authors.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            ViewBag.authors = _appDbContext.Authors.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = $"{c.Name}-{c.Surname}" }).ToList();
 
             var book = await _bookRepository.GetByIdAsync(id);
 
