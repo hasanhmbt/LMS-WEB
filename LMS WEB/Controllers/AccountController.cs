@@ -5,6 +5,8 @@ using LMS_WEB.Models.IdentityModels;
 using LMS_WEB.Tools;
 using LMS_WEB.ViewModels;
 using LMS_WEB.ViewModel;
+using LMS_Web.Tools;
+using LMS_WEB.ViewModels.IdentityModels;
 
 namespace LMS_Web.Controllers
 {
@@ -14,12 +16,17 @@ namespace LMS_Web.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
-
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IWebHostEnvironment webHostEnvironment)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public AccountController(
+            UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager,
+            IWebHostEnvironment webHostEnvironment,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _webHostEnvironment = webHostEnvironment;
+            _roleManager = roleManager;
         }
 
         [AllowAnonymous]
@@ -47,8 +54,16 @@ namespace LMS_Web.Controllers
                     {
                         if (await _userManager.IsInRoleAsync(user, "Admin"))
                             return RedirectToAction("Index", "Home");
-                        else
+                        else if (await _userManager.IsInRoleAsync(user, "Operator"))
+                        {
                             return RedirectToAction("Index", "Book");
+
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Site");
+
+                        }
                     }
                     else
                         return Redirect(returnUrl);
@@ -174,5 +189,54 @@ namespace LMS_Web.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+
+
+            string randomPassword = CommonTools.GenerateRandomPassword(7);
+
+            CommonTools.SendEmail(model.Email, "Library acces code", $"Use this credentials to login your new account\nUsername: {model.UserName}\nPassword: {randomPassword}");
+
+            var user = new AppUser
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                UserName = model.UserName,
+                ChangePassword = true,
+
+
+            };
+
+            var result = await _userManager.CreateAsync(user, randomPassword);
+
+            if (result.Succeeded)
+            {
+                //var role = await _roleManager.FindByIdAsync(model.RoleId);
+
+                //await _userManager.AddToRoleAsync(user, role.Name = "Reader");
+
+                return RedirectToAction(nameof(Login));
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View();
+        }
+
     }
 }

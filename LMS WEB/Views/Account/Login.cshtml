@@ -21,51 +21,95 @@
     <!--===============================================================================================-->
     <link href="~/login/css/main.css" rel="stylesheet" />
     <link href="~/login/css/util.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="~/css/sb-admin-2.css" rel="stylesheet" />
+
     <!--===============================================================================================-->
 </head>
 <body>
 
-    <div class="limiter" id="contentt">
-        <div class="container-login100" >
-            <div class="wrap-login100 ">
-                <form method="post" asp-action="Login" class="login100-form validate-form" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]">
-                    <input type="hidden" name="returnUrl" />
-                    <span class="login100-form-title p-b-26" id="sp">
-                        Order Management System
-                    </span>
 
-                    <div class="wrap-input100 validate-input">
-                        <input class="input100" type="text" asp-for="UserName">
-                        <span class="focus-input100" data-placeholder="Username"></span>
-                    </div>
+    <div class="container">
 
-                    <div class="wrap-input100 validate-input">
-                        <span class="btn-show-pass">
-                            <i class="zmdi zmdi-eye"></i>
-                        </span>
-                        <input class="input100" type="password" asp-for="Password">
-                        <span class="focus-input100" data-placeholder="Password"></span>
-                    </div>
+        <!-- Outer Row -->
+        <div class="row justify-content-center pt-5">
 
-                    <div class="mb-2 form-check fs-14 text-primary">
-                        <input type="checkbox" class="form-check-input" asp-for="RememberMe">
-                        <label class="form-check-label" asp-for="RememberMe">Remember me</label>
-                    </div>
+            <div class="col-xl-10 col-lg-12 col-md-9 " img src="~/images/bookimg1.jpg">
 
-                    <div class="fs-14 text-danger row" asp-validation-summary="All"></div>
 
-                    <div class="container-login100-form-btn">
-                        <div class="wrap-login100-form-btn">
-                            <div class="login100-form-bgbtn"></div>
-                            <button type="submit" class="login100-form-btn">
-                                Login
-                            </button>
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <img class="col-lg-6 d-none d-lg-block " src="~/images/libraryloginimage.jpg" />
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    </div>
+                                    <form method="post" asp-action="Login" class="login100-form validate-form" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]">
+
+
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" asp-for="UserName"
+                                                   id="exampleInputEmail" aria-describedby="emailHelp"
+                                                   placeholder="Username">
+                                        </div>
+
+                                        <div class=" validate-input">
+                                            <span class="btn-show-pass">
+                                                <i class="zmdi zmdi-eye"></i>
+                                            </span>
+                                            <input type="password" class="form-control form-control-user" asp-for="Password"
+                                                   id="exampleInputPassword" placeholder="Password">
+                                        </div>
+                                        
+                                        <label>      </label>
+
+                                        <div class="form-group">
+                                            <div class="mb-2 form-check fs-14 text-primary">
+                                                <input type="checkbox" class="form-check-input" asp-for="RememberMe">
+                                                <label class="form-check-label" asp-for="RememberMe">Remember me</label>
+                                            </div>
+                                        </div>
+                                        <div class="fs-14 text-danger row" asp-validation-summary="All"></div>
+
+
+                                        <div class="container-login100-form-btn">
+                                            <div class="wrap-login100-form-btn">
+                                                <div class="login100-form-bgbtn"></div>
+                                                <button type="submit" class="login100-form-btn">
+                                                    Login
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" asp-controller="Account" asp-action="Register">Create an Account!</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </form>
+                </div>
+
             </div>
+
         </div>
+
     </div>
+
+
+
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

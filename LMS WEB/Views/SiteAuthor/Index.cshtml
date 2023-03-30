@@ -1,0 +1,73 @@
+﻿@model List<VwAuthor>
+
+
+
+
+ 
+ 
+<style>
+    .truncated-text {
+        cursor: pointer;
+    }
+
+    .popup {
+        position: absolute;
+        display: none;
+        padding: 5px;
+        background-color: white;
+        border: 1px solid black;
+        z-index: 9999;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 14px;
+    }
+</style>
+
+
+
+<div class="container mx-auto mt-4">
+    <div class="row">
+
+
+        @foreach (var author in Model)
+        {
+
+            <div class="col-md-3   mb-3 ">
+                <div class="card" style="width: 18rem">
+                    <img src="@author.ImagePath" class="card-img-top" asp-append-version="true" width="290" height="350 " />
+
+                    <div class="card-body">
+                        <h5 class="card-title">@author.Name @author.Surname </h5>
+                        <p class="truncated-text" data-full-text="@author.Description">
+                            @{
+                                var maxLength = 100;
+                                var truncatedText = author.Description.Length > maxLength
+                                ? author.Description.Substring(0, maxLength) + "..."
+                                : author.Description;
+                            }
+                            @truncatedText
+                            <div class="popup"></div>
+                        </p>
+                        <a href="#" class="btn mr-2"><i class="fas fa-book"></i> Books</a>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.truncated-text').hover(function () {
+            var fullText = $(this).data('full-text');
+            $(this).append($('<div class="popup">' + fullText + '</div>'));
+            $('.popup').fadeIn('slow');
+        }, function () {
+            $('.popup').fadeOut('slow');
+            $('.popup').remove();
+        });
+    });
+</script>

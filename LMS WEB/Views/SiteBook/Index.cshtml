@@ -1,48 +1,82 @@
-﻿@model List<Book>
+﻿@using LMS_WEB.Models.DbModels
+@model List<VwBook>
 
 
-@{
-    Layout = "~/Views/Site/Index.cshtml";
+@*<div class="row">
+    <form method="post" asp-action="Index">
+        <div class="row mx-1 mb-4">
+            <input type="hidden" value="@ViewBag.book" name="book" />
+            <input type="hidden" value="@ViewBag.bookId" name="bookId" />
+            <input type="text" value="@ViewBag.searchText" class=" col-2 form-control form-control-sm" name="searchText" placeholder="Enter name" />
+            <button class="btn btn-sm btn-outline-primary shadow-sm w-auto ml-1"><i class="fa-regular fa-magnifying-glass"></i></button>
+        </div>
+    </form>
+</div>
+*@
+<style>
+    .truncated-text {
+        cursor: pointer;
+    }
 
-}
+    .popup {
+        position: absolute;
+        display: none;
+        padding: 5px;
+        background-color: white;
+        border: 1px solid black;
+        z-index: 9999;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 14px;
+    }
+</style>
+
 
 
 <div class="container mx-auto mt-4">
     <div class="row">
 
-        @if (Model.Any())
-        {
-            @foreach (var book in Model)
-            {
 
-                <div class="col-md-3   mb-3 ">
-                    <div class="card" style="width: 18rem">
-                        @*<img src="@book.BookImages"
-                class="card-img-top"
-                asp-append-version="true" />*@
-                        <img src="~/images/bookimg1.jpg" class="card-img-top" />
-                        <div class="card-body">
-                            <h5 class="card-title">@book.Name</h5>
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
-                            </p>
-                            <a href="#" class="btn mr-2"><i class="fas fa-link"></i> Visit Site</a>
-                        </div>
+        @foreach (var book in Model)
+        {
+
+            <div class="col-md-3   mb-3 ">
+                <div class="card" style="width: 18rem">
+                    <img src="@book.ImagePath" class="card-img-top" asp-append-version="true" width="290" height="430 " />
+
+                    <div class="card-body">
+                        <h5 class="card-title">@book.Name</h5>
+                        <p class="truncated-text" data-full-text="@book.Description">
+                            @{
+                                var maxLength = 100;
+                                var truncatedText = book.Description.Length > maxLength
+                                ? book.Description.Substring(0, maxLength) + "..."
+                                : book.Description;
+                            }
+                            @truncatedText
+                            <div class="popup"></div>
+                        </p>
+                        <a href="#" class="btn mr-2"><i class="fas fa-feather "></i> Author</a>
+                        <a href="#" class="btn mr-2"><i class="fa-regular fa-bag-shopping"></i> Order</a>
                     </div>
                 </div>
+            </div>
 
 
-            }
         }
+
     </div>
-
 </div>
-@*<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
-*@
 
-
+<script>
+    $(document).ready(function () {
+        $('.truncated-text').hover(function () {
+            var fullText = $(this).data('full-text');
+            $(this).append($('<div class="popup">' + fullText + '</div>'));
+            $('.popup').fadeIn('slow');
+        }, function () {
+            $('.popup').fadeOut('slow');
+            $('.popup').remove();
+        });
+    });
+</script>

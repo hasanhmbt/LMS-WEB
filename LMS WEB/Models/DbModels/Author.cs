@@ -22,6 +22,8 @@ public partial class Author
 
     public string? Description { get; set; }
 
+    public string? ImagePath { get; set; }
+
     [InverseProperty("Author")]
     public virtual ICollection<AuthorImage> AuthorImages { get; } = new List<AuthorImage>();
 

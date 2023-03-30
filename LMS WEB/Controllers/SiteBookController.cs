@@ -3,6 +3,7 @@ using LMS_WEB.Repositories.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace LMS_WEB.Controllers
 {
@@ -30,11 +31,25 @@ namespace LMS_WEB.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int bookId, string book)
         {
-            var book = await _appDbContext.Books.ToListAsync();
+            var books = await _bookRepository.GetAllAsync(bookId);
+            ViewBag.book = book;
+            ViewBag.bookId = bookId;
             
-            return View("~/Views/Site/Books.cshtml", book);
+            return View(  books);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(int bookId, string book, string searchText)
+        {
+            var books = await _bookRepository.GetAllAsync(bookId, searchText);
+            ViewBag.book = book;
+            ViewBag.bookId = bookId;
+            ViewBag.SearchText = searchText;
+
+            return View(  book);
         }
     }
 }

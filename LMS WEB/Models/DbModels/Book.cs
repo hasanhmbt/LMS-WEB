@@ -31,6 +31,8 @@ public partial class Book
 
     public string? Description { get; set; }
 
+    public string? ImagePath { get; set; }
+
     [ForeignKey("AuthorId")]
     [InverseProperty("Books")]
     public virtual Author? Author { get; set; }

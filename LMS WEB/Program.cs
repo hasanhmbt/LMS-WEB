@@ -5,6 +5,7 @@ using LMS_WEB.Repositories.Abstract;
 using LMS_WEB.Repositories.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using LMS_WEB.Models.DbModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
 builder.Services.AddScoped<IOperationRepository, OperationRepository>();
 builder.Services.AddScoped<ISiteRepository,  SiteRepository>();
+builder.Services.AddScoped<BookImage>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

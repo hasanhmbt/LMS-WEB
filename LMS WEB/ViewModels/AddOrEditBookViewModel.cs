@@ -25,8 +25,11 @@ namespace LMS_WEB.ViewModels
 
         [Required(ErrorMessage ="Select a book category!")]
         public int? CategoryId { get; set; }
+         
+        public string? Description { get; set; }
 
-        public List<IFormFile>? FormFiles { get; set; }
+        public string? ImagePath { get; set; }
+        public IFormFile? BookImage { get; set; }
 
     }
 }

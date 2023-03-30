@@ -127,6 +127,8 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<VwBook>(entity =>
         {
             entity.ToView("VwBooks");
+
+            entity.Property(e => e.ImagePath).IsFixedLength();
         });
 
         modelBuilder.Entity<VwBookCategory>(entity =>

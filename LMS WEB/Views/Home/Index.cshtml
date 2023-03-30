@@ -1,6 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Dashboard";
 }
+@{
+    Layout = "_Layout";
+}
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<AppUser> _userManager
+
+@{
+    var user = await _userManager.GetUserAsync(this.User);
+}
+
+
+@if ((await _userManager.IsInRoleAsync(user, "Admin")) || (await _userManager.IsInRoleAsync(user, "Operator")))
+{
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4 row">
@@ -178,4 +191,5 @@
 
     <script src="~/vendor/chartjs/line-chart.js" asp-append-version="true"></script>
     <script src="~/vendor/chartjs/doughnut-chart.js" asp-append-version="true"></script>
+}
 }

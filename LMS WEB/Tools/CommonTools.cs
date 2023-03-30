@@ -30,11 +30,11 @@ namespace  LMS_Web.Tools
                 client.EnableSsl = true;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential("ordermanagemetsystem@gmail.com", "llcglgasuiyqqvkp");
+                client.Credentials = new NetworkCredential("librarymanagement66@gmail.com", "yhwrfdgpqbddezcs");
                 //password: l!br@ry!@#$%
                 MailMessage message = new MailMessage();
                 message.To.Add(to.Trim());
-                message.From = new MailAddress("ordermanagemetsystem@gmail.com");
+                message.From = new MailAddress("librarymanagement66@gmail.com");
                 message.Subject = subject.Trim();
                 message.Body = body.Trim();
 

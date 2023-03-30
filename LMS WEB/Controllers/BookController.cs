@@ -77,30 +77,27 @@ namespace LMS_WEB.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            if (model.BookImage != null)
+            {
+                var fileUploadResult = FileOperations.UploadFile(_webHostEnvironment.WebRootPath, "Books", model.BookImage);
+                model.ImagePath = fileUploadResult.FilePath;
+            }
+
             int bookId = _bookRepository.Add(new Book
             {
                 Code = model.Code,
                 Name = model.Name,
                 CategoryId = model.CategoryId,
                 AuthorId = model.AuthorId,
-                Count = model.BookQuantity
+                Count = model.BookQuantity,
+                Description =model.Description,
+                ImagePath = model.ImagePath,
             });
 
-            var bookImages = new List<BookImage>();
-            List<FileUploadResult> results = new List<FileUploadResult>();
-
-            if (model.FormFiles != null && model.FormFiles.Count > 0)
-                results = FileOperations.UploadMultipleFiles(_webHostEnvironment.WebRootPath, "Books", model.FormFiles);
-
-            foreach (var result in results)
-                bookImages.Add(new BookImage { BookId = bookId, FileName = result.FileName, FilePath = result.FilePath });
 
 
-            if (bookImages.Count > 0)
-            {
-                _appDbContext.BookImages.AddRange(bookImages);
-                _appDbContext.SaveChanges();
-            }
+          
+             
 
             return RedirectToAction(nameof(Index));
 
@@ -124,7 +121,9 @@ namespace LMS_WEB.Controllers
                 Name = book.Name,
                 AuthorId = book.AuthorId,
                 CategoryId = book.CategoryId,
-                BookQuantity = book.Count
+                BookQuantity = book.Count,
+                Description = book.Description,
+                ImagePath = book.ImagePath
 
             };
 
@@ -139,6 +138,13 @@ namespace LMS_WEB.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            if (model.BookImage != null)
+            {
+                var fileUploadResult = FileOperations.UploadFile(_webHostEnvironment.WebRootPath, "Books", model.BookImage);
+                model.ImagePath = fileUploadResult.FilePath;
+
+            }
+
             var book = await _bookRepository.GetByIdAsync(model.Id);
 
             book.Id = model.Id;
@@ -147,54 +153,17 @@ namespace LMS_WEB.Controllers
             book.AuthorId = model.AuthorId;
             book.CategoryId = model.CategoryId;
             book.Count = model.BookQuantity;
+            book.Description = model.Description;
+            book.ImagePath = model.ImagePath;
 
             _bookRepository.Edit(book);
 
-            var bookImages = new List<BookImage>();
-            List<FileUploadResult> results = new();
-
-            if (model.FormFiles != null && model.FormFiles.Count > 0)
-            {
-                results = FileOperations.UploadMultipleFiles(_webHostEnvironment.WebRootPath, "Books", model.FormFiles);
-            }
-
-            foreach (var result in results)
-            {
-                bookImages.Add(new BookImage { 
-                    BookId = model.Id, 
-                    FileName = result.FileName, 
-                    FilePath = result.FilePath 
-                });
-            }
-
-            if (bookImages.Count > 0)
-            {
-                _appDbContext.BookImages.AddRange(bookImages);
-                _appDbContext.SaveChanges();
-            }
 
             return RedirectToAction(nameof(Index));
         }
 
 
-        [HttpGet]
-        public IActionResult BookFiles(int id)
-        {
-            var bookFiles = _appDbContext.BookImages.Where(p => p.BookId == id).ToList();
-            return View(bookFiles);
-        }
-
-        public async Task<IActionResult> DeleteBookFile(int id)
-        {
-            var bookFile = await _appDbContext.BookImages.FindAsync(id);
-            var bookFiles = _appDbContext.BookImages.Where(p => p.BookId == id).ToList();
-
-
-            _appDbContext.BookImages.Remove(bookFile);
-            _appDbContext.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
+         
 
 
     }

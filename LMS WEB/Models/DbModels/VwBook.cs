@@ -35,4 +35,9 @@ public partial class VwBook
     public DateTime? CreateDate { get; set; }
 
     public int? Remainder { get; set; }
+
+    public string? Description { get; set; }
+
+    [StringLength(300)]
+    public string? ImagePath { get; set; }
 }

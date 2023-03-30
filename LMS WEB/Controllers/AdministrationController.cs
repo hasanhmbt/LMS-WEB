@@ -241,7 +241,7 @@ namespace OMS_Web.Controllers
                     var oldRole = _roleManager.Roles.Where(r => r.Name == roleName).FirstOrDefault();
                     if (model.RoleId != oldRole.Id)
                     {
-                       await _userManager.RemoveFromRoleAsync(user, oldRole.Name);
+                        await _userManager.RemoveFromRoleAsync(user, oldRole.Name);
 
                         var role = await _roleManager.FindByIdAsync(model.RoleId);
 
@@ -254,7 +254,7 @@ namespace OMS_Web.Controllers
 
                     await _userManager.AddToRoleAsync(user, role.Name);
                 }
-               
+
                 return RedirectToAction(nameof(Users));
             }
 
@@ -276,5 +276,9 @@ namespace OMS_Web.Controllers
             return RedirectToAction(nameof(Users));
         }
         #endregion
+
+
+
+       
     }
 }

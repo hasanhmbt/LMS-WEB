@@ -28,8 +28,8 @@ namespace LMS_WEB.ViewModels
         [Required(ErrorMessage = "Write description for author!")]
 
         public string? Description { get; set; }
-
-        public List<IFormFile>? FormFiles { get; set; }
-
+        
+        public string? ImagePath { get; set; }
+        public IFormFile? AuthorImage { get; set; }
     }
 }

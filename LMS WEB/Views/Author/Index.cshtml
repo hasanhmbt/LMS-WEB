@@ -1,5 +1,7 @@
 ﻿@model List<VwAuthor>
-
+@{
+    Layout = "_Layout";
+}
 
 
 @{
@@ -23,7 +25,7 @@
 <style>
     .truncated-text {
         cursor: pointer;
-        text-decoration: underline;
+         
     }
 
 
@@ -92,7 +94,6 @@
                         <div class="popup"></div>
                     </td>
                     <td>
-                        <a asp-action="AuthorFiles" title="Book files" asp-route-id="@author.Id" class="btn btn-sm btn-circle btn-warning"><i class="fa-thin fa-file-image"></i></a>
                         <a asp-action="EditAuthor" asp-route-id="@author.Id" class="btn btn-sm btn-circle btn-primary"><i class="fa-light fa-pen-to-square"></i></a>
                         <a onclick="return confirm('Are you sure to delete?')" asp-action="DeleteAuthor" asp-route-id="@author.Id" class="btn btn-sm btn-circle btn-danger"><i class="fas fa-trash"></i></a>
                     </td>

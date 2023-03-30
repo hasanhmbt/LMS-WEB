@@ -41,6 +41,14 @@
         </div>
     </div>
 
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label asp-for="Description">Book Description</label>
+            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter description"></textarea>
+            @*<span asp-validation-for="CategoryDescription" class="text-danger"></span>*@
+        </div>
+    </div>
 </div>
 
 <div class="row mx-4">
@@ -53,8 +61,8 @@
     </div>
     <div class="col-lg-6">
         <div class="form-group">
-            <label>Files</label>
-            <input type="file" class="form-control-file" multiple name="FormFiles" asp-for="FormFiles">
+            <label>Image</label>
+            <input type="file" class="form-control-file form-control-sm" name="BookImage" asp-for="BookImage">
         </div>
     </div>
 

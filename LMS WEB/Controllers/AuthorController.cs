@@ -58,32 +58,23 @@ namespace LMS_WEB.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            if (model.AuthorImage != null)
+            {
+                var fileUploadResult = FileOperations.UploadFile(_webHostEnvironment.WebRootPath, "Authors", model.AuthorImage);
+                model.ImagePath = fileUploadResult.FilePath;
+            }
+
             int authorId = _authorRepository.Add(new Author
             {
                 Name = model.Name,
                 Surname = model.Surname,
                 Birthdate = model.Birthdate,
-                Description = model.Description
+                Description = model.Description,
+                ImagePath = model.ImagePath,
             });
 
-            var authorImages = new List<AuthorImage>();
-            List<FileUploadResult> results = new();
+          
 
-            if (model.FormFiles != null && model.FormFiles.Count > 0)
-            {
-                results = FileOperations.UploadMultipleFiles(_webHostEnvironment.WebRootPath, "Authors", model.FormFiles);
-            }
-
-            foreach (var result in results)
-            {
-                authorImages.Add(new AuthorImage { AuthorId = authorId, FileName = result.FileName, FilePath = result.FilePath });
-            }
-
-            if (authorImages.Count > 0)
-            {
-                _appDbContext.AuthorImages.AddRange(authorImages);
-                _appDbContext.SaveChanges();
-            }
 
             return RedirectToAction(nameof(Index));
         }
@@ -103,6 +94,7 @@ namespace LMS_WEB.Controllers
                 Surname = author.Surname,
                 Birthdate = author.Birthdate,
                 Description = author.Description,
+                ImagePath = author.ImagePath,
 
             };
 
@@ -119,58 +111,32 @@ namespace LMS_WEB.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            if (model.AuthorImage != null)
+            {
+                var fileUploadResult = FileOperations.UploadFile(_webHostEnvironment.WebRootPath, "Authors", model.AuthorImage);
+                model.ImagePath = fileUploadResult.FilePath;
+            }
+
+
             var author = await _authorRepository.GetByIdAsync(model.Id);
 
             author.Name = model.Name;
             author.Surname = model.Surname;
             author.Birthdate = model.Birthdate;
             author.Description = model.Description;
+            author.ImagePath = model.ImagePath;
 
-
+         
             _authorRepository.Edit(author);
 
-            var authorImages = new List<AuthorImage>();
-            List<FileUploadResult> results = new();
-
-            if (model.FormFiles != null && model.FormFiles.Count > 0)
-            {
-                results = FileOperations.UploadMultipleFiles(_webHostEnvironment.WebRootPath, "Authors", model.FormFiles);
-            }
-
-            foreach (var result in results)
-            {
-                authorImages.Add(new AuthorImage { AuthorId = model.Id, FileName = result.FileName, FilePath = result.FilePath });
-            }
-
-            if (authorImages.Count > 0)
-            {
-                _appDbContext.AuthorImages.AddRange(authorImages);
-                _appDbContext.SaveChanges();
-            }
+             
 
             return RedirectToAction(nameof(Index));
         }
 
 
 
-        [HttpGet]
-        public IActionResult AuthorFiles(int id)
-        {
-            var authorFiles = _appDbContext.AuthorImages.Where(p => p.AuthorId == id).ToList();
-            return View(authorFiles);
-        }
-
-        public async Task<IActionResult> DeleteAuthorFile(int id)
-        {
-            var authorFile = await _appDbContext.AuthorImages.FindAsync(id);
-            var authorFiles = _appDbContext.AuthorImages.Where(p => p.AuthorId == id).ToList();
-
-
-            _appDbContext.AuthorImages.Remove(authorFile);
-            _appDbContext.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
+       
 
 
 
