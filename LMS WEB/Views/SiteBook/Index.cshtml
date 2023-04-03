@@ -2,75 +2,217 @@
 @model List<VwBook>
 
 
-@*<div class="row">
-    <form method="post" asp-action="Index">
-        <div class="row mx-1 mb-4">
-            <input type="hidden" value="@ViewBag.book" name="book" />
-            <input type="hidden" value="@ViewBag.bookId" name="bookId" />
-            <input type="text" value="@ViewBag.searchText" class=" col-2 form-control form-control-sm" name="searchText" placeholder="Enter name" />
-            <button class="btn btn-sm btn-outline-primary shadow-sm w-auto ml-1"><i class="fa-regular fa-magnifying-glass"></i></button>
-        </div>
-    </form>
-</div>
-*@
+
 <style>
-    .truncated-text {
+    .searchCon {
+        width: 100%;
+        height: 72px;
+        border-bottom: 1px #e5e7eb solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .serachForm {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .searchInput {
+        border-radius: 4px 0 0 4px;
+        height: 40px;
+        padding: 0 16px;
+        border: 1px #e5e7eb solid;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .SubmitBtn {
+        border: none;
+        height: 40px;
+        padding: 0 16px;
+        margin: 0;
+        border-radius: 0 4px 4px 0;
+        background-color: #3b71ca;
+        color: white;
         cursor: pointer;
     }
 
-    .popup {
-        position: absolute;
-        display: none;
-        padding: 5px;
-        background-color: white;
-        border: 1px solid black;
-        z-index: 9999;
-        border-radius: 5px;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        .SubmitBtn:hover {
+            opacity: 0.9;
+        }
+</style>
+
+<div class="searchCon">
+    <form method="post" asp-action="Index" class="serachForm">
+        <input type="hidden" value="@ViewBag.book" name="book" />
+        <input type="hidden" value="@ViewBag.bookId" name="bookId" />
+        <input type="text"
+               class="searchInput"
+               name="searchText"
+               placeholder="Enter name"
+               value="@ViewBag.searchText" />
+        <button class="SubmitBtn" type="submit">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+</div>
+
+
+<style>
+    .BookCon {
+        max-width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 24px 48px;
+        flex-wrap: wrap;
+        overflow: hidden;
+        flex-direction: row;
+        gap: 16px;
+    }
+
+    .BookCard {
+        display: flex;
+        border: 1px #e5e7eb solid;
+        border-radius: 8px;
+        height: 200px;
+        width: 450px;
+        max-width: 100%;
+        transition: 0.3s;
+    }
+
+        .BookCard:hover {
+            transform: scale(1.02);
+        }
+
+    .CardImage {
+        border-radius: 8px 0 0 8px;
+        max-width: 125px;
+        object-fit: fill;
+    }
+
+    .CardBody {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .CardMain {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .BookAuthor {
+        text-decoration: none;
+        color: #718096;
         font-size: 14px;
+        font-weight: 200;
+    }
+
+    .BookName {
+        margin: 0;
+        color: #1a202c;
+        font-size: 20px;
+    }
+
+    .BookDescription {
+        margin: 0;
+        font-size: 16px;
+        color: #4a5568;
+    }
+
+    .BookDescription {
+        display: -webkit-box;
+        overflow: hidden;
+        max-height: 50px;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        line-height: 24px;
+    }
+
+    .OrderSection {
+        display: flex;
+        width: 100%;
+        justify-content: end;
+    }
+
+    .orderBtn {
+        display: flex;
+        align-items: center;
+        border: none;
+        text-decoration: none;
+        height: 40px;
+        padding: 0 16px;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: #edf2f7;
+        color: #4a5568;
+    }
+
+        .orderBtn:hover {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+
+    media only screen and (max-width: 1013px) {
+        .BookCon
+
+    {
+        padding: 24px 16px;
+    }
+
+    .BookCard {
+        width: 100%;
+        height: 200px;
+    }
+
+    }
+
+    media only screen and (max-width: 600px) {
+        .BookCon
+
+    {
+        padding: 24px 16px;
+    }
+
+    .BookCard {
+        width: 100%;
+        height: 250px;
     }
 </style>
 
 
-
-<div class="container mx-auto mt-4">
-    <div class="row">
-
-
-        @foreach (var book in Model)
-        {
-
-            <div class="col-md-3   mb-3 ">
-                <div class="card" style="width: 18rem">
-                    <img src="@book.ImagePath" class="card-img-top" asp-append-version="true" width="290" height="430 " />
-
-                    <div class="card-body">
-                        <h5 class="card-title">@book.Name</h5>
-                        <p class="truncated-text" data-full-text="@book.Description">
-                            @{
-                                var maxLength = 100;
-                                var truncatedText = book.Description.Length > maxLength
-                                ? book.Description.Substring(0, maxLength) + "..."
-                                : book.Description;
-                            }
-                            @truncatedText
-                            <div class="popup"></div>
-                        </p>
-                        <a href="#" class="btn mr-2"><i class="fas fa-feather "></i> Author</a>
-                        <a href="#" class="btn mr-2"><i class="fa-regular fa-bag-shopping"></i> Order</a>
-                    </div>
+<div class="BookCon">
+    @foreach (var book in Model)
+    {
+        <div class="BookCard">
+            <img src="@book.ImagePath"
+             asp-append-version="true"
+                 class="CardImage" />
+            <div class="CardBody">
+                <div class="CardMain">
+                    <a href="" class="BookAuthor">@book.Author</a>
+                    <h5 class="BookName">@book.Name</h5>
+                    <p class="BookDescription">
+                        @book.Description
+                    </p>
+                </div>
+                <div class="OrderSection">
+                    <a asp-controller="SiteBook" asp-action="OrderBook" asp-route-id="@book.Id" class="orderBtn">Order</a>
                 </div>
             </div>
-
-
-        }
-
-    </div>
+        </div>
+    }
 </div>
-
 <script>
     $(document).ready(function () {
-        $('.truncated-text').hover(function () {
+        $('.truncated-text').hover(function
+            () {
             var fullText = $(this).data('full-text');
             $(this).append($('<div class="popup">' + fullText + '</div>'));
             $('.popup').fadeIn('slow');

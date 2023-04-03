@@ -1,0 +1,86 @@
+﻿/* Style for the form container */
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    min-height: 100vh;
+}
+
+/* Style for the form input fields */
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        font-size: 16px;
+        color: #333;
+    }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="file"]:focus {
+            outline: none;
+            border-color: #66afe9;
+            box-shadow: 0 0 5px #66afe9;
+        }
+
+    .form-group span.text-danger {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+/* Style for the image */
+.img-profile {
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Style for the validation summary */
+.text-danger {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.validation-summary-errors {
+    margin-bottom: 10px;
+}
+
+    .validation-summary-errors ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .validation-summary-errors li {
+        color: red;
+    }
+
+/* Style for the save button */
+.btn-save {
+    background-color: #28a745;
+    color: #fff;
+    border-color: #28a745;
+}
+
+    .btn-save:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }

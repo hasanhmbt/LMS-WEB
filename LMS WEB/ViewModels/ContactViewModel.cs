@@ -4,13 +4,20 @@ namespace LMS_WEB.ViewModels
 {
     public class ContactViewModel
     {
-        [Required]
-        public string? Name { get; set; }
-        [Required]
-        public string? Email { get; set; }
-        [Required]
 
+        [Required]
+        [MaxLength(50)]
+        public string FirstName { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string LastName { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
         public string? Message { get; set; }
+        [StringLength(100)]
+        public string? PhoneNum { get; set; }
 
 
     }

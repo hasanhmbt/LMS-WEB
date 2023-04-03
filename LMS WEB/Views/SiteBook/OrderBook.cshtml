@@ -1,0 +1,30 @@
+﻿@model Book
+
+
+
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/animate.css" rel="stylesheet" />
+<link href="~/css/orderbook.css" rel="stylesheet" />
+<link href="~/css/style.css" rel="stylesheet" />
+
+    <div class="BookCon">
+        <div class="BookCard">
+            <img src="@Model.ImagePath"
+             asp-append-version="true"
+                 class="CardImage" />
+            <div class="CardBody">
+                <div class="CardMain">
+                <a href="" class="BookAuthor">@Model.Author</a>
+                <h5 class="BookName">@Model.Name</h5>
+                    <p class="BookDescription">
+                    @Model.Description
+                    </p>
+                </div>
+                <div class="OrderSection">
+
+                    <a href="#" class="orderBtn">Order</a>
+                </div>
+            </div>
+        </div>
+    </div>
+ 

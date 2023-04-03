@@ -1,4 +1,6 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿function showSuccessAlert(title) {
+    toastr.options.positionClass = 'toast-bottom-right';
+    toastr.options.fadeOut = 1000;
+    toastr.options.timeOut = 2000;
+    toastr.success(title);
+}

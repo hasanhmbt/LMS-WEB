@@ -39,9 +39,9 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Oredered Books
+                            Ordered Books
                         </div>
-                        <div id="soldProducts" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <div id="OrederedBooks" class="h5 mb-0 font-weight-bold text-gray-800">9</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-solid fa-book-user fa-2x text-gray-300"></i>
@@ -60,7 +60,7 @@
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                             Readers
                         </div>
-                        <div id="productVarieties" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <div id="AllReaders" class="h5 mb-0 font-weight-bold text-gray-800">14</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-solid fa-book-open-reader fa-2x text-gray-300"></i> 
@@ -82,7 +82,7 @@
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             All Books
                         </div>
-                        <div id="allProducts" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <div id="AllBooks" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-solid fa-shelves fa-2x text-gray-300"></i>
@@ -103,7 +103,7 @@
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                             Authors
                         </div>
-                        <div id="allProducts" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <div id="AllAuthors" class="h5 mb-0 font-weight-bold text-gray-800">9</div>
                     </div>
                     <div class="col-auto">
                           <i class="fa-duotone fa-feather fa-2x text-gray-300"></i>
@@ -154,35 +154,13 @@
 
                 //cards
                 if (res.dashboardCounts != null) {
-                    document.getElementById('productVarieties').innerHTML = res.dashboardCounts.productVarieties;
-                    document.getElementById('allProducts').innerHTML = res.dashboardCounts.allProducts;
-                    document.getElementById('soldProducts').innerHTML = res.dashboardCounts.soldProducts;
-                    document.getElementById('totalEarnings').innerHTML = '$ ' + res.dashboardCounts.totalEarnings;
+                    document.getElementById('AllBooks').innerHTML = res.dashboardCounts.AllBooks;
+                    document.getElementById('AllReaders').innerHTML = res.dashboardCounts.AllReaders;
+                    document.getElementById('AllAuthors').innerHTML = res.dashboardCounts.AllAuthors;
+                    document.getElementById('OrederedBooks').innerHTML =  res.dashboardCounts.OrederedBooks;
                 }
 
-                //line chart
-                if (res.totalEarnings != null) {
-                    areaLabels = res.totalEarnings.months;
-                    areaDataSet = res.totalEarnings.totals
-
-                    if (myLineChart != null) {
-                        myLineChart.destroy();
-                    }
-
-                    makeLineChart();
-                }
-
-
-                //doughut chart
-                if (res.bestSellingProduct != null) {
-                    pieDataLabels = res.bestSellingProduct.productNames;
-                    pieDataSet = res.bestSellingProduct.productCounts
-
-                    if (myPieChart != null) {
-                        myPieChart.destroy();
-                    }
-
-                    makeDoughnutChart();
+                
                 }
             });
         }

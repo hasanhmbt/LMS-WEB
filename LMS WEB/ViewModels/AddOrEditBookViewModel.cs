@@ -27,6 +27,7 @@ namespace LMS_WEB.ViewModels
         public int? CategoryId { get; set; }
          
         public string? Description { get; set; }
+        public string? Author { get; set; }
 
         public string? ImagePath { get; set; }
         public IFormFile? BookImage { get; set; }

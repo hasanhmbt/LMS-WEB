@@ -1,13 +1,35 @@
 ﻿@model List<VwAuthor>
 
-
-
-
- 
- 
 <style>
+    .card {
+        border: none;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover {
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-img-top {
+        height: 250px;
+        object-fit: cover;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
     .truncated-text {
         cursor: pointer;
+        position: relative;
     }
 
     .popup {
@@ -20,42 +42,68 @@
         border-radius: 5px;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         font-size: 14px;
+        max-width: 250px;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
     }
+
+    .btn {
+        background-color: #5e72e4;
+        border-color: #5e72e4;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #324cdd;
+        border-color: #324cdd;
+    }
+
+    .btn i {
+        margin-right: 5px;
+    }
+
 </style>
-
-
 
 <div class="container mx-auto mt-4">
     <div class="row">
-
-
         @foreach (var author in Model)
         {
-
-            <div class="col-md-3   mb-3 ">
-                <div class="card" style="width: 18rem">
-                    <img src="@author.ImagePath" class="card-img-top" asp-append-version="true" width="290" height="350 " />
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@author.ImagePath"
+                         class="card-img-top"
+                         asp-append-version="true"
+                         alt="@author.Name"
+                         title="@author.Name"/>
 
                     <div class="card-body">
-                        <h5 class="card-title">@author.Name @author.Surname </h5>
+                        <h5 class="card-title">@author.Name
+                            @if (!string.IsNullOrEmpty(author.Surname))
+                            {
+                                <span>@author.Surname</span>
+                            }
+                        </h5>
                         <p class="truncated-text" data-full-text="@author.Description">
                             @{
                                 var maxLength = 100;
                                 var truncatedText = author.Description.Length > maxLength
-                                ? author.Description.Substring(0, maxLength) + "..."
-                                : author.Description;
+                                    ? author.Description.Substring(0, maxLength) + "..."
+                                    : author.Description;
                             }
                             @truncatedText
                             <div class="popup"></div>
                         </p>
-                        <a href="#" class="btn mr-2"><i class="fas fa-book"></i> Books</a>
+                        <a href="@Url.Action("Index", "SiteBook" )"
+                           class="btn">
+                            <i class="fas fa-book"></i>
+                            Books
+                        </a>
                     </div>
                 </div>
             </div>
-
-
         }
-
     </div>
 </div>
 
@@ -69,5 +117,4 @@
             $('.popup').fadeOut('slow');
             $('.popup').remove();
         });
-    });
-</script>
+   

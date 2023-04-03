@@ -45,7 +45,7 @@ namespace LMS_WEB.Controllers
         }
 
 
-       
+
 
         public async Task<IActionResult> AddOperation()
         {
@@ -71,7 +71,7 @@ namespace LMS_WEB.Controllers
                 BookId = model.BookId,
                 ReaderId = model.ReaderId,
                 UserId = userId,
-                OrderedBooks =+1
+                OrderedBooks = +1
 
             });
 
@@ -93,7 +93,7 @@ namespace LMS_WEB.Controllers
             {
                 ReaderId = book.ReaderId,
                 BookId = book.BookId,
-                 
+
 
             };
 
@@ -112,7 +112,7 @@ namespace LMS_WEB.Controllers
 
             operation.ReaderId = model.ReaderId;
             operation.BookId = model.BookId;
-            
+
 
 
             _operationRepository.Edit(operation);

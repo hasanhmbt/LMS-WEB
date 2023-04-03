@@ -1,4 +1,5 @@
 ﻿using LMS_Web.Tools;
+using LMS_WEB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMS_WEB.Controllers
@@ -9,18 +10,15 @@ namespace LMS_WEB.Controllers
 
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index( )
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult SendMessage()
+        public IActionResult Index(ContactViewModel model)
         {
-            string randomPassword = CommonTools.GenerateRandomPassword(7);
-
-            //CommonTools.SendEmail(model.Email, "Library acces code", $"Use this credentials to login your new account\nUsername: {model.UserName}\nPassword: {randomPassword}");
-
+            CommonTools.SendEmail("librarycontact2@gmail.com", "User message from contact us", $"User informations \nName:{model.FirstName}\nLastname:{model.LastName}\nEmail:{model.Email}\nPhone Number:{model.PhoneNum}\n\nMessage: {model.Message}");
             return View();
         }
     }

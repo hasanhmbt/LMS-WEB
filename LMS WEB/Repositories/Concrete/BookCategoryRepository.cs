@@ -2,7 +2,7 @@
 using LMS_WEB.Models.DbModels;
 using LMS_WEB.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 
 namespace LMS_WEB.Repositories.Concrete
 {
@@ -15,14 +15,18 @@ namespace LMS_WEB.Repositories.Concrete
             _appDbContext = appDbContext;
         }
 
-
+        public async Task<List<VwBookCategory>> GetAllAsync()
+        {
+            return await _appDbContext.VwBookCategories.ToListAsync();
+        }
         public async Task<List<VwBookCategory>> GetAllAsync(int categoryId, string searchText = "")
         {
-            //if (  categoryId > 0 &&   searchText != "")
+            if (searchText != null)
                 return await _appDbContext.VwBookCategories.Where(b => b.Name.Contains(searchText)).OrderByDescending(b => b.Id).ToListAsync();
-            //else
-            //    return await _appDbContext.VwBookCategories.ToListAsync();
+            else
+                return await _appDbContext.VwBookCategories.ToListAsync();
         }
+       
 
         public async Task<BookCategory> GetByIdAsync(int id)
         {

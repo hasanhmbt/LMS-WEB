@@ -1,11 +1,17 @@
-﻿@using Microsoft.AspNetCore.Identity;
-@inject UserManager<AppUser> _userManager
+﻿@using LMS_WEB.Repositories.Abstract;
+@using Microsoft.AspNetCore.Identity;
 
+@inject UserManager<AppUser> _userManager
+@inject IBookCategoryRepository _categoryRepository;
 @{
     var user = await _userManager.GetUserAsync(this.User);
 }
 
+@*@inject List<VwBookCategory> _category ;*@
 
+@{
+    var _category = await _categoryRepository.GetAllAsync();
+}
 
 
 
@@ -56,16 +62,18 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" href="#">Page 1</a>
-                            <a class="dropdown-item" href="#">Page 2</a>
-                            <a class="dropdown-item" href="#">Page 3</a>
-                            <a class="dropdown-item" href="#">Page 4</a>
+                            @foreach (var category in _category)
+                            {
+                                <a class="dropdown-item"  asp-route-id="@category.Id">@category.Name</a>
+
+                            }
+
                         </div>
                     </li>
                     <li class="nav-item"><a asp-controller="SiteBook" asp-action="Index" class="nav-link">Books</a></li>
                     <li class="nav-item"><a asp-controller="SiteAuthor" asp-action="Index" class="nav-link">Authors</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Events</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a asp-controller="" asp-action="" class="nav-link">Events</a></li>
+                    <li class="nav-item"><a asp-controller="Contact" asp-action="Index" class="nav-link">Contact us</a></li>
                 </ul>
 
                 <ul>
@@ -95,8 +103,16 @@
                                 <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
+
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Orders
                                 </a>
                             </div>
+
+
                         </li>
                     }
                     else
@@ -122,85 +138,7 @@
 
 <body>
 
-    <div class="container mx-auto mt-4">
-        <div class="row">
 
-
-            @* <div class="col-md-3   mb-3 ">
-            <div class="card" style="width: 18rem">
-            <img src="https://i.imgur.com/ZTkt4I5.jpg"
-            class="card-img-top"
-            alt="..." />
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-            </p>
-            </div>
-            </div>
-            </div>
-            <div class="col-md-3   mb-3 ">
-            <div class="card" style="width: 18rem">
-            <img src="https://i.imgur.com/ZTkt4I5.jpg"
-            class="card-img-top"
-            alt="..." />
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-            </p>
-            </div>
-            </div>
-            </div> <div class="col-md-3   mb-3 ">
-            <div class="card" style="width: 18rem">
-            <img src="https://i.imgur.com/ZTkt4I5.jpg"
-            class="card-img-top"
-            alt="..." />
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-            </p>
-            </div>
-            </div>
-            </div> <div class="col-md-3   mb-3 ">
-            <div class="card" style="width: 18rem">
-            <img src="https://i.imgur.com/ZTkt4I5.jpg"
-            class="card-img-top"
-            alt="..." />
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-            </p>
-            </div>
-            </div>
-            </div> <div class="col-md-3   mb-3 ">
-            <div class="card" style="width: 18rem">
-            <img src="https://i.imgur.com/ZTkt4I5.jpg"
-            class="card-img-top"
-            alt="..." />
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-            </p>
-            </div>
-            </div>
-            </div>*@
-
-        </div>
-    </div>
 
 
     <div id="main">
@@ -237,8 +175,8 @@
                 <p class="mb-0 d-flex">
                     <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
                     <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
-                    <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
-                    <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+                    <a href="https://www.instagram.com/codersazerbaijan/" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+                    <a href="https://dribbble.com/" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
                 </p>
             </div>
         </div>

@@ -1,4 +1,6 @@
-﻿using LMS_WEB.Models;
+﻿using LMS_WEB.Data;
+using LMS_WEB.Models;
+using LMS_WEB.Models.DbModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,11 +8,11 @@ namespace LMS_WEB.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly AppFuncContext _appFuncContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(AppFuncContext appFuncContext)
         {
-            _logger = logger;
+            _appFuncContext = appFuncContext;
         }
 
         public IActionResult Index()
@@ -24,10 +26,19 @@ namespace LMS_WEB.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public JsonResult GetChartData(string beginDate, string endDate)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            DashboardData dashboardData = new();
+
+            try
+            {
+                //cards
+                dashboardData.DashboardCounts = _appFuncContext.FncDashboardCounts(beginDate, endDate).FirstOrDefault();
+            }
+            catch (Exception)
+            { }
+
+            return Json(dashboardData);
         }
     }
 }

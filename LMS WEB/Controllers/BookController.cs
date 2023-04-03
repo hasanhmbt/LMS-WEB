@@ -94,11 +94,6 @@ namespace LMS_WEB.Controllers
                 ImagePath = model.ImagePath,
             });
 
-
-
-          
-             
-
             return RedirectToAction(nameof(Index));
 
 

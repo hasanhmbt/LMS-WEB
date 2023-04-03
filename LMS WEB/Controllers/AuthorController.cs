@@ -85,7 +85,7 @@ namespace LMS_WEB.Controllers
         {
 
 
-            var author = await _authorRepository.GetByIdAsync(id);
+            var author = await _authorRepository.GetByIdAsync(id);  
 
             var model = new AddOrEditAuthorViewModel
             {

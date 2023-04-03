@@ -1,45 +1,95 @@
-﻿@*
+﻿@model ContactViewModel
 
-<form method="post" asp-action="Register" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-9ZmRnayQzVP+MCvXTsQ8/1QsCBJw/bsv+I/1TtptfzNxpHEJbLkkjBTEbzQ2kr7t"
+      crossorigin="anonymous">
+
+<style>
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: ;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    textarea {
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    .text-danger {
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin-top: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+        button[type="submit"]:hover {
+            background-color: #0069d9;
+            transform: scale(1.05);
+        }
+</style>
+
+<form method="post" id="contact-form">
 
     <div class="form-group row">
         <div class="col-sm-6 mb-3 mb-sm-0">
-            <input type="text" asp-for="FirstName" class="form-control form-control-user" id="exampleFirstName"
-                   placeholder="First Name">
+            <label asp-for="FirstName" class="form-label">First Name</label>
+            <input type="text" asp-for="FirstName" class="form-control" id="exampleFirstName"
+                   placeholder="Enter your first name">
         </div>
+
         <div class="col-sm-6">
-            <input type="text" asp-for="LastName" class="form-control form-control-user" id="exampleLastName"
-                   placeholder="Last Name">
+            <label asp-for="LastName" class="form-label">Last Name</label>
+            <input type="text" asp-for="LastName" class="form-control" id="exampleLastName"
+                   placeholder="Enter your last name">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <label asp-for="PhoneNum" class="form-label">Phone Number</label>
+            <input type="tel" asp-for="PhoneNum" class="form-control" id="examplePhoneNum"
+                   placeholder="Enter your phone number">
+        </div>
+
+        <div class="col-sm-6">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail"
+                   placeholder="Enter your email">
         </div>
     </div>
 
     <div class="form-group">
-        <input type="text" asp-for="UserName" class="form-control form-control-user" id="exampleInputEmail"
-               placeholder="User Name">
+        <label asp-for="Message" class="form-label">Message</label>
+        <textarea asp-for="Message" class="form-control" rows="3" placeholder="Enter your message"></textarea>
     </div>
 
-    <div class="form-group">
-        <input type="email" asp-for="Email" class="form-control form-control-user" id="exampleInputEmail"
-               placeholder="Email Address">
-    </div>
+    <div asp-validation-summary="All" class="text-danger"></div>
 
-
-
-    <div class="fs-14 text-danger row" asp-validation-summary="All"></div>
-
-
-    <a style="color:crimson">You need to check your mail for one time password ! </a>
-
-    <div class="container-login100-form-btn">
-        <div class="wrap-login100-form-btn">
-            <div class="login100-form-bgbtn"></div>
-            <button type="submit" class="login100-form-btn">
-                Register Account
-            </button>
-        </div>
-    </div>
-
+    <button type="submit" class="btn btn-primary">Send Message</button>
 
 </form>
 
-*@
+ 
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz
