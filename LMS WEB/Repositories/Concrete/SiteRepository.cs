@@ -15,10 +15,10 @@ namespace LMS_WEB.Repositories.Concrete
         }
 
 
-        public async Task<List<BookImage>> GetAllAsync()
-        {
-            return await _appDbContext.BookImages.ToListAsync();
-        }
+        //public async Task<List<BookImage>> GetAllAsync()
+        //{
+        //    return await _appDbContext.BookImages.ToListAsync();
+        //}
 
     }
 }

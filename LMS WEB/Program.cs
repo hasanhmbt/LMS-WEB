@@ -19,6 +19,7 @@ builder.Services.AddScoped<IOperationRepository, OperationRepository>();
 builder.Services.AddScoped<ISiteRepository,  SiteRepository>();
 builder.Services.AddScoped<List<VwBookCategory>>();
 builder.Services.AddScoped<List<VwBook>>();
+builder.Services.AddScoped<List<VwOperation>>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

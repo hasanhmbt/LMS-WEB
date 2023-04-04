@@ -7,24 +7,22 @@ using Microsoft.EntityFrameworkCore;
 namespace LMS_WEB.Models.DbModels;
 
 [Keyless]
-public partial class VwOperation
+public partial class Vworeder
 {
     public int Id { get; set; }
 
     [StringLength(100)]
-    public string? Book { get; set; }
-
-    public string Reader { get; set; } = null!;
+    public string? BookName { get; set; }
 
     [StringLength(256)]
     public string? UserName { get; set; }
 
-    public bool? AcceptStatus { get; set; }
-
-    [Column(TypeName = "datetime")]
-    public DateTime? OperationDate { get; set; }
-
     [Column("userId")]
     [StringLength(450)]
     public string? UserId { get; set; }
+
+    public int BookId { get; set; }
+
+    [Column(TypeName = "datetime")]
+    public DateTime? OrderDate { get; set; }
 }

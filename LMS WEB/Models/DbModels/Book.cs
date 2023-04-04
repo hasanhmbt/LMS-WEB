@@ -37,9 +37,6 @@ public partial class Book
     [InverseProperty("Books")]
     public virtual Author? Author { get; set; }
 
-    [InverseProperty("Book")]
-    public virtual ICollection<BookImage> BookImages { get; } = new List<BookImage>();
-
     [ForeignKey("CategoryId")]
     [InverseProperty("Books")]
     public virtual BookCategory? Category { get; set; }

@@ -13,9 +13,9 @@ namespace LMS_WEB.ViewModels
         public int Id { get; set; }
 
         public int? BookId { get; set; }
-        [Required]
         public int? ReaderId { get; set; }
 
+        [Required]
         [StringLength(300)]
         public string? UserId { get; set; }
 

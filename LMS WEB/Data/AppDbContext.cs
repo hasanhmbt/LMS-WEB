@@ -18,21 +18,17 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Author> Authors { get; set; }
 
-    public virtual DbSet<AuthorImage> AuthorImages { get; set; }
-
     public virtual DbSet<Book> Books { get; set; }
 
     public virtual DbSet<BookCategory> BookCategories { get; set; }
-
-    public virtual DbSet<BookImage> BookImages { get; set; }
 
     public virtual DbSet<Month> Months { get; set; }
 
     public virtual DbSet<Operation> Operations { get; set; }
 
-    public virtual DbSet<Reader> Readers { get; set; }
+    public virtual DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<ReaderImage> ReaderImages { get; set; }
+    public virtual DbSet<Reader> Readers { get; set; }
 
     public virtual DbSet<VwAuthor> VwAuthors { get; set; }
 
@@ -41,6 +37,8 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<VwBookCategory> VwBookCategories { get; set; }
 
     public virtual DbSet<VwOperation> VwOperations { get; set; }
+
+    public virtual DbSet<Vworeder> Vworeders { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -51,15 +49,6 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<Author>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Authors__3214EC075E7725E7");
-        });
-
-        modelBuilder.Entity<AuthorImage>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__AuthorIm__3214EC07CC2F75A0");
-
-            entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
-
-            entity.HasOne(d => d.Author).WithMany(p => p.AuthorImages).HasConstraintName("FK__AuthorIma__Autho__17F790F9");
         });
 
         modelBuilder.Entity<Book>(entity =>
@@ -81,15 +70,6 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.CategoryDescription).HasDefaultValueSql("((1))");
         });
 
-        modelBuilder.Entity<BookImage>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__BookImag__3214EC07CAA1CCDC");
-
-            entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
-
-            entity.HasOne(d => d.Book).WithMany(p => p.BookImages).HasConstraintName("FK__BookImage__BookI__6D0D32F4");
-        });
-
         modelBuilder.Entity<Operation>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Operatio__3214EC07E639A4AD");
@@ -102,21 +82,19 @@ public partial class AppDbContext : DbContext
             entity.HasOne(d => d.Reader).WithMany(p => p.Operations).HasConstraintName("FK__Operation__Reade__503BEA1C");
         });
 
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Oreders__3214EC07DD793EF2");
+
+            entity.Property(e => e.OrderDate).HasDefaultValueSql("(getdate())");
+        });
+
         modelBuilder.Entity<Reader>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Readers__3214EC07113456E5");
 
             entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.Status).HasDefaultValueSql("((1))");
-        });
-
-        modelBuilder.Entity<ReaderImage>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__ReaderIm__3214EC07AD5E776E");
-
-            entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
-
-            entity.HasOne(d => d.Reader).WithMany(p => p.ReaderImages).HasConstraintName("FK__ReaderIma__Reade__3E1D39E1");
         });
 
         modelBuilder.Entity<VwAuthor>(entity =>
@@ -139,6 +117,11 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<VwOperation>(entity =>
         {
             entity.ToView("VwOperations");
+        });
+
+        modelBuilder.Entity<Vworeder>(entity =>
+        {
+            entity.ToView("VWOreders");
         });
 
         OnModelCreatingPartial(modelBuilder);

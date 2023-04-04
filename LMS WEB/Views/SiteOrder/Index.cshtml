@@ -1,1 +1,46 @@
-﻿
+﻿@model List<VwOperation>
+
+
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/animate.css" rel="stylesheet" />
+<link href="~/css/style.css" rel="stylesheet" />
+
+
+<div class="row mx-1 pt-4">
+    <table class="table   shadow text-center">
+        <thead class="table-dark">
+
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Book</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Order Date</th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+            }
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <th scope="row">@counter</th>
+
+                    <td>@order.Book</td>
+                    <td>@order.UserName</td>
+                    <td>@order.OperationDate</td>
+                    <td>
+                    <a   asp-action="DeleteBook" asp-route-id=" " class="btn btn-sm btn-circle btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                     
+                </tr>
+
+                counter++;
+            }
+
+        </tbody>
+    </table>
+</div>
+

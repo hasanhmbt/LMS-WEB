@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.AccessControl;
 using Microsoft.AspNetCore.Identity;
 using LMS_WEB.Models.IdentityModels;
+using LMS_Web.Data;
 
 namespace LMS_WEB.Controllers
 {
@@ -17,6 +18,7 @@ namespace LMS_WEB.Controllers
     {
         private readonly IOperationRepository _operationRepository;
         private readonly AppDbContext _appDbContext;
+        private readonly AppIdentityDbContext  _appIdentityDbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly UserManager<AppUser> _userManager;
 
@@ -26,13 +28,15 @@ namespace LMS_WEB.Controllers
             IOperationRepository operationRepository,
             AppDbContext appDbContext,
             IWebHostEnvironment webHostEnvironment,
-            UserManager<AppUser> userManager
+            UserManager<AppUser> userManager,
+            AppIdentityDbContext appIdentityDbContext
             )
         {
             _appDbContext = appDbContext;
             _operationRepository = operationRepository;
             _webHostEnvironment = webHostEnvironment;
             _userManager = userManager;
+            _appIdentityDbContext = appIdentityDbContext;
         }
 
 
@@ -50,8 +54,7 @@ namespace LMS_WEB.Controllers
         public async Task<IActionResult> AddOperation()
         {
             ViewBag.Books = _appDbContext.Books.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
-            ViewBag.Readers = _appDbContext.Readers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
-
+            ViewBag.Users =  _appIdentityDbContext.Users.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.UserName }).ToList();
             return View();
         }
 
@@ -59,7 +62,8 @@ namespace LMS_WEB.Controllers
         public async Task<IActionResult> AddOperation(AddOrEditOperationViewModel model)
         {
             ViewBag.Books = _appDbContext.Books.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
-            ViewBag.Readers = _appDbContext.Readers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            ViewBag.Users = _appIdentityDbContext.Users.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.UserName }).ToList();
+
             if (!ModelState.IsValid)
                 return View(model);
             string userId = string.Empty;
@@ -69,50 +73,39 @@ namespace LMS_WEB.Controllers
             int operationId = _operationRepository.Add(new Operation
             {
                 BookId = model.BookId,
-                ReaderId = model.ReaderId,
-                UserId = userId,
+                UserId = model.UserId,
                 OrderedBooks = +1
 
             });
-
-
             return RedirectToAction(nameof(Index));
-
-
         }
 
 
         public async Task<IActionResult> EditOperation(int id)
         {
             ViewBag.Books = _appDbContext.Books.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
-            ViewBag.Readers = _appDbContext.Readers.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            ViewBag.Users = _appIdentityDbContext.Users.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.UserName }).ToList();
 
             var book = await _operationRepository.GetByIdAsync(id);
 
             var model = new AddOrEditOperationViewModel
             {
-                ReaderId = book.ReaderId,
+                UserId = book.UserId,
                 BookId = book.BookId,
-
-
             };
-
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditOperation(AddOrEditOperationViewModel model)
         {
-
-
             if (!ModelState.IsValid)
                 return View(model);
 
             var operation = await _operationRepository.GetByIdAsync(model.Id);
 
-            operation.ReaderId = model.ReaderId;
+            operation.UserId = model.UserId;
             operation.BookId = model.BookId;
-
 
 
             _operationRepository.Edit(operation);

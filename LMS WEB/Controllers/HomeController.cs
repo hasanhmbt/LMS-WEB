@@ -34,6 +34,9 @@ namespace LMS_WEB.Controllers
             {
                 //cards
                 dashboardData.DashboardCounts = _appFuncContext.FncDashboardCounts(beginDate, endDate).FirstOrDefault();
+
+                var mostOrderedBooks = _appFuncContext.FncFncMostOrderedBooks(beginDate, endDate).ToList();
+
             }
             catch (Exception)
             { }

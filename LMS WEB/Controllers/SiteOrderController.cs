@@ -1,38 +1,74 @@
-﻿using LMS_WEB.Data;
+﻿using LMS_Web.Data;
+using LMS_WEB.Data;
+using LMS_WEB.Models.DbModels;
+using LMS_WEB.Models.IdentityModels;
 using LMS_WEB.Repositories.Abstract;
 using LMS_WEB.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMS_WEB.Controllers
 {
     public class SiteOrderController : Controller
     {
 
+        #region Fields
 
-        private readonly IBookRepository _bookRepository;
+        private readonly IOperationRepository _operationRepository;
         private readonly AppDbContext _appDbContext;
+        private readonly AppIdentityDbContext _appIdentityDbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IBookCategoryRepository _categoryRepository;
-        private readonly IAuthorRepository _authorRepository;
+        private readonly UserManager<AppUser> _userManager;
 
 
         public SiteOrderController(
-            IBookRepository bookRepository,
+
+            IOperationRepository operationRepository,
             AppDbContext appDbContext,
             IWebHostEnvironment webHostEnvironment,
-            IBookCategoryRepository bookCategoryRepository,
-            IAuthorRepository authorRepository
-
+            UserManager<AppUser> userManager,
+            AppIdentityDbContext appIdentityDbContext
             )
         {
             _appDbContext = appDbContext;
-            _bookRepository = bookRepository;
-            _categoryRepository = bookCategoryRepository;
+            _operationRepository = operationRepository;
             _webHostEnvironment = webHostEnvironment;
-            _authorRepository = authorRepository;
+            _userManager = userManager;
+            _appIdentityDbContext = appIdentityDbContext;
+        }
+        #endregion
+
+        
+
+        [HttpGet]
+        public async Task<IActionResult> Index(string Id)
+        {
+            // var order = await _appDbContext.Vworeders.FindAsync(Id);
+             var order = await _appDbContext.VwOperations.Where(b => b.UserId.Contains(Id)).OrderByDescending(b => b.UserId).ToListAsync();
+
+
+            return View(order);
         }
 
-      
+
+
+        public async Task<IActionResult> AddOrder(SiteOrderViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+            string userId = string.Empty;
+            var user = await _userManager.GetUserAsync(this.User);
+            if (user != null)
+                userId = user.Id;
+            var operationId = _appDbContext.Orders.Add(new Order
+            {
+                BookId = model.BookId,
+                UserId = model.UserId
+
+            });
+            return RedirectToAction(nameof(Index));
+
+        }
     }
 }

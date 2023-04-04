@@ -14,11 +14,11 @@
 
     <div class="col-lg-6">
         <div class="form-group">
-            <label asp-for="ReaderId">Reader</label>
-            <select asp-for="ReaderId" class="form-control" asp-items="@ViewBag.Readers">
+            <label asp-for="UserId">Reader</label>
+            <select asp-for="UserId" class="form-control" asp-items="@ViewBag.Users">
                 <option value="">--Select reader--</option>
             </select>
-            <span asp-validation-for="ReaderId" class="text-danger"></span>
+            <span asp-validation-for="UserId" class="text-danger"></span>
         </div>
     </div>
 

@@ -33,7 +33,4 @@ public partial class Reader
 
     [InverseProperty("Reader")]
     public virtual ICollection<Operation> Operations { get; } = new List<Operation>();
-
-    [InverseProperty("Reader")]
-    public virtual ICollection<ReaderImage> ReaderImages { get; } = new List<ReaderImage>();
 }
