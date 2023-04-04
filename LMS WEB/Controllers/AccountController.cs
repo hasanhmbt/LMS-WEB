@@ -223,9 +223,9 @@ namespace LMS_Web.Controllers
 
             if (result.Succeeded)
             {
-                //var role = await _roleManager.FindByIdAsync(model.RoleId);
+                var role = await _roleManager.FindByIdAsync(model.RoleId);
 
-                //await _userManager.AddToRoleAsync(user, role.Name = "Reader");
+                await _userManager.AddToRoleAsync(user, role.Name = "Reader");
 
                 return RedirectToAction(nameof(Login));
             }

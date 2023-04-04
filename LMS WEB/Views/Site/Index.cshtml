@@ -72,18 +72,9 @@
 
 <hr></hr>
 
-<style>
-    .recommended-label {
-        display: inline-block;
-        font-size: 24px;
-        font-weight: bold;
-        color: black;
-        padding: 10px 20px;
-        margin-bottom: 20px;
-    }
-</style>
-
-<label class="recommended-label">Most read books </label>
+ 
+    
+<h1 class="mint" style="text-align: center">Most read books</h1>
 
 
 
@@ -94,13 +85,13 @@
 
         <div class="col-md-3 mb-3 ">
             <div class="card">
-                <img src="~/images/bookimg2.jpg" asp-append-version="true" class="CardImage" />
+                <img src="~/uploads/books/doc_20230326_175903182.png" asp-append-version="true" class="card-img-top" />
 
-
+            
                 <div class="card-body">
-                    <h5 class="card-title">Name</h5>
-                    <a asp-action="BookAuthor"><i class="fas fa-feather"></i> Author </a>
-                    <p class="card-text"> Description</p>
+                    <h5 class="card-title">Adventures of Huckleberry Finn</h5>
+                    <a asp-action="BookAuthor"><i class="fas fa-feather"></i> Mark Twain </a>
+                    <p class="card-text"> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     <a href="#" class="btn btn-secondary mt-2"><i class="fa-regular fa-bag-shopping"></i> Order</a>
                 </div>
             </div>
@@ -108,26 +99,29 @@
 
         <div class="col-md-3 mb-3 ">
             <div class="card">
-                <img src="~/images/bookimg2.jpg" asp-append-version="true" class="CardImage" />
-
-
+                <img src="~/uploads/books/doc_20230326_190040380.jpg" asp-append-version="true" class="card-img-top" />
+               
                 <div class="card-body">
-                    <h5 class="card-title">Name</h5>
-                    <a asp-action="BookAuthor"><i class="fas fa-feather"></i> Author </a>
-                    <p class="card-text"> Description</p>
+                    <h5 class="card-title">
+                        Twice Told Tales
+                    </h5>
+                    <a asp-action="BookAuthor"><i class="fas fa-feather"></i> Nathaniel Hawthorne </a>
+                    <p class="card-text"> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     <a href="#" class="btn btn-secondary mt-2"><i class="fa-regular fa-bag-shopping"></i> Order</a>
                 </div>
             </div>
         </div>
         <div class="col-md-3 mb-3 ">
             <div class="card">
-                <img src="~/images/bookimg2.jpg" asp-append-version="true" class="CardImage" />
-
+                <img src="~/uploads/books/doc_20230326_180938129.jpg" asp-append-version="true" class="card-img-top" />
+                
 
                 <div class="card-body">
-                    <h5 class="card-title">Name</h5>
-                    <a asp-action="BookAuthor"><i class="fas fa-feather"></i> Author </a>
-                    <p class="card-text"> Description</p>
+                    <h5 class="card-title">
+                        For Whom the Bell Tolls
+                    </h5>
+                    <a asp-action="BookAuthor"><i class="fas fa-feather"></i> Ernest Hemingway </a>
+                    <p class="card-text"> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     <a href="#" class="btn btn-secondary mt-2"><i class="fa-regular fa-bag-shopping"></i> Order</a>
                 </div>
             </div>
@@ -135,13 +129,14 @@
 
         <div class="col-md-3 mb-3 ">
             <div class="card">
-                <img src="~/images/bookimg2.jpg" asp-append-version="true" class="CardImage" />
-
-
+                <img src="~/uploads/books/doc_20230331_000559604.jpg" asp-append-version="true" class="card-img-top" />
+               
                 <div class="card-body">
-                    <h5 class="card-title">Name</h5>
-                    <a asp-action="BookAuthor"><i class="fas fa-feather"></i> Author </a>
-                    <p class="card-text"> Description</p>
+                    <h5 class="card-title">
+                        Of Mice and Men
+                    </h5>
+                    <a asp-action="BookAuthor"><i class="fas fa-feather"></i> John Steinbeck </a>
+                    <p class="card-text"> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     <a href="#" class="btn btn-secondary mt-2"><i class="fa-regular fa-bag-shopping"></i> Order</a>
                 </div>
             </div>
@@ -153,20 +148,8 @@
 
 <hr></hr>
 
-
-<style>
-    .recommended-label {
-        display: inline-block;
-        font-size: 24px;
-        font-weight: bold;
-        color: black;
-        padding: 10px 20px;
-        margin-bottom: 20px;
-    }
-</style>
-
-<label class="recommended-label">Recommended</label>
-
+ 
+<h1 class="mint" style="text-align: center">Recommended</h1>
 
 
 
@@ -302,14 +285,31 @@
 
 
     <div class="BookCard">
-        <img src="~/images/bookimg2.jpg" asp-append-version="true" class="CardImage" />
-
+        <img src="~/uploads/books/doc_20230331_000842927.jpg" asp-append-version="true" class="CardImage" />
+     
         <div class="CardBody">
             <div class="CardMain">
-                <a href="" class="BookAuthor"> Author</a>
-                <h5 class="BookName"> Name</h5>
+                <a href="" class="BookAuthor"> Toni Morrison</a>
+                <h5 class="BookName"> Sula</h5>
                 <p class="BookDescription">
-                    Description
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </p>
+            </div>
+            <div class="OrderSection">
+                <a asp-controller="SiteBook" asp-action="OrderBook" asp-route-id="" class="orderBtn">Order</a>
+            </div>
+        </div>
+    </div> 
+    <div class="BookCard">
+        <img src="~/uploads/books/doc_20230326_190344884.jpg" asp-append-version="true" class="CardImage" />
+        <div class="CardBody">
+            <div class="CardMain">
+                <a href="" class="BookAuthor"> John Steinbeck</a>
+                <h5 class="BookName">
+                    The Grapes of Wrath
+                </h5>
+                <p class="BookDescription">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 </p>
             </div>
             <div class="OrderSection">
@@ -324,26 +324,9 @@
         <div class="CardBody">
             <div class="CardMain">
                 <a href="" class="BookAuthor"> Author</a>
-                <h5 class="BookName"> Name</h5>
+                <h5 class="BookName"> Memory</h5>
                 <p class="BookDescription">
-                    Description
-                </p>
-            </div>
-            <div class="OrderSection">
-                <a asp-controller="SiteBook" asp-action="OrderBook" asp-route-id="" class="orderBtn">Order</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="BookCard">
-        <img src="~/images/bookimg2.jpg" asp-append-version="true" class="CardImage" />
-
-        <div class="CardBody">
-            <div class="CardMain">
-                <a href="" class="BookAuthor"> Author</a>
-                <h5 class="BookName"> Name</h5>
-                <p class="BookDescription">
-                    Description
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 </p>
             </div>
             <div class="OrderSection">

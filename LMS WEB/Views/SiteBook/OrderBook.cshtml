@@ -2,29 +2,115 @@
 
 
 
-<link href="~/css/bootstrap.min.css" rel="stylesheet" />
 <link href="~/css/animate.css" rel="stylesheet" />
-<link href="~/css/orderbook.css" rel="stylesheet" />
 <link href="~/css/style.css" rel="stylesheet" />
 
-    <div class="BookCon">
-        <div class="BookCard">
-            <img src="@Model.ImagePath"
-             asp-append-version="true"
-                 class="CardImage" />
-            <div class="CardBody">
-                <div class="CardMain">
-                <a href="" class="BookAuthor">@Model.Author</a>
-                <h5 class="BookName">@Model.Name</h5>
-                    <p class="BookDescription">
-                    @Model.Description
-                    </p>
-                </div>
-                <div class="OrderSection">
+ <style>
 
-                <a asp-controller="SiteOrder" asp-action="AddOrder" class="orderBtn">Order</a>
-                </div>
-            </div>
-        </div>
+     .BookCon {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    align-self: start;
+    padding: 24px 48px;
+    overflow: hidden;
+    gap: 48px;
+}
+
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.BookImg {
+    border-radius: 8px;
+    width: 250px;
+    height: 400px;
+    object-fit: fill;
+    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+
+.OrderBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    text-decoration: none;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 4px;
+    font-size: 16px;
+    color: white;
+    background-color: #4299e1;
+}
+
+.righSide {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.MainContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 2px #e5e7eb solid;
+}
+
+.BookAuthor {
+    text-decoration: none;
+    color: #718096;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.BookName {
+    color: #1a202c;
+    font-weight: 600;
+    font-size: 48px;
+}
+
+.Description {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 28px;
+    color: #4a5568;
+}
+
+  media only screen and (max-width: 700px) {
+    .BookCon {
+        flex-direction: column;
+        padding: 24px 16px;
+        overflow: visible;
+    }
+
+    .leftSide {
+        align-items: center;
+    }
+
+    .OrderBtn {
+        width: 100%;
+    }
+}
+
+
+ </style>
+
+
+<div class="BookCon">
+    <div class="leftSide">
+        <img src="@Model.ImagePath" asp-append-version="true" class="BookImg " style="width: 250px; height:400px;" />
+
+        <a asp-controller="SiteOrder" asp-action="AddOrder"  asp-route-id="@Model.Id" class="OrderBtn" >Order</a>
     </div>
- 
+    <div class="righSide">
+        <div class="MainContent">
+            <a href="" class="BookAuthor">@Model.Author</a>
+            <h1 class="BookName">@Model.Name</h1>
+        </div>
+        <p class="Description">@Model.Description</p>
+    </div>
+</div>

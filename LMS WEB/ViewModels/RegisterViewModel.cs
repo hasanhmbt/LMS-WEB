@@ -23,9 +23,9 @@ namespace LMS_WEB.ViewModels
         [Required]
         public string UserName { get; set; }
 
-        //[Required]
-        //public string? RoleId { get; set; }
+        [Required]
+        public string? RoleId { get; set; } = "59d85d04-28f0-47e4-8dec-7068358ab9e2";
 
-        
+
     }
 }

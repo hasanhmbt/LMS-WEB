@@ -69,9 +69,9 @@ namespace LMS_WEB.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> BookAuthor(int id)
+        public async Task<IActionResult> BookAuthor(int Id)
         {
-            var author = await _authorRepository.GetByIdAsync(id);
+            var author = await _appDbContext.Authors.FindAsync(Id);
             return View(author);
             
         }

@@ -4,7 +4,7 @@ namespace LMS_WEB.ViewModels
 {
     public class ChangePasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "One time password is incorrect")]
         [DataType(DataType.Password)]
         public string OneTimePassword { get; set; }
 

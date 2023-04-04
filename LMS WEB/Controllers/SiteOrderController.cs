@@ -44,27 +44,39 @@ namespace LMS_WEB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string Id)
         {
-            // var order = await _appDbContext.Vworeders.FindAsync(Id);
-             var order = await _appDbContext.VwOperations.Where(b => b.UserId.Contains(Id)).OrderByDescending(b => b.UserId).ToListAsync();
+           
+             var order = await _appDbContext.Vworeders.Where(b => b.UserId.Contains(Id)).OrderByDescending(b => b.UserId).ToListAsync();
 
 
             return View(order);
         }
 
+        public async Task<IActionResult> DeleteOrder(int Id)
+        {
+            var order = _appDbContext.Orders.Find(Id);
+            _appDbContext.Orders.Remove(order);
+            _appDbContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
 
 
         public async Task<IActionResult> AddOrder(SiteOrderViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
+
+
             string userId = string.Empty;
+
             var user = await _userManager.GetUserAsync(this.User);
             if (user != null)
                 userId = user.Id;
+
+
             var operationId = _appDbContext.Orders.Add(new Order
             {
                 BookId = model.BookId,
-                UserId = model.UserId
+                UserId = userId
 
             });
             return RedirectToAction(nameof(Index));

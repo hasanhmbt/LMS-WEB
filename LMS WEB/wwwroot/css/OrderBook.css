@@ -1,116 +1,88 @@
-﻿
-.BookCon {
+﻿.BookCon {
     max-width: 100%;
+    height: 100vh;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    align-self: start;
     padding: 24px 48px;
     overflow: hidden;
-    background-color: #f7fafc;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
-    border-radius: 12px;
-    min-height: 100vh;
+    gap: 48px;
 }
 
-.BookCard {
+.leftSide {
     display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.BookImg {
     border-radius: 8px;
-    height: 200px;
-    width: 550px;
-    max-width: 100%;
-    transition: 0.3s;
-    background-color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
-    border: 1px #e5e7eb solid;
+    width: 250px;
+    height: 400px;
+    object-fit: fill;
+    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
 
-    .BookCard:hover {
-        transform: scale(1.02);
-        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-    }
-
-.CardImage {
-    border-radius: 8px 0 0 8px;
-    object-fit: cover;
-}
-
-.CardBody {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-
-.CardMain {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.BookAuthor {
-    text-decoration: none;
-    color: #718096;
-    font-size: 14px;
-    font-weight: 200;
-}
-
-.BookName {
-    margin: 0 0 8px 0;
-    color: #1a202c;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.BookDescription {
-    margin: 0;
-    font-size: 16px;
-    color: #4a5568;
-}
-
-.OrderSection {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-}
-
-.orderBtn {
+.OrderBtn {
     display: flex;
     align-items: center;
+    justify-content: center;
     border: none;
     text-decoration: none;
     height: 40px;
     padding: 0 16px;
     border-radius: 4px;
     font-size: 16px;
-    background-color: #1a202c;
     color: white;
-    transition: 0.3s;
+    background-color: #4299e1;
 }
 
-    .orderBtn:hover {
-        opacity: 0.8;
-        cursor: pointer;
-    }
-
-@media only screen and (max-width: 1013px) {
-    .BookCon {
-        padding: 24px 16px;
-    }
-
-    .BookCard {
-        width: 100%;
-        height: 200px;
-    }
+.righSide {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
 }
 
-@media only screen and (max-width: 600px) {
+.MainContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 2px #e5e7eb solid;
+}
+
+.BookAuthor {
+    text-decoration: none;
+    color: #718096;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.BookName {
+    color: #1a202c;
+    font-weight: 600;
+    font-size: 48px;
+}
+
+.Description {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 28px;
+    color: #4a5568;
+}
+
+@media only screen and (max-width: 700px) {
     .BookCon {
+        flex-direction: column;
         padding: 24px 16px;
+        overflow: visible;
     }
 
-    .BookCard {
+    .leftSide {
+        align-items: center;
+    }
+
+    .OrderBtn {
         width: 100%;
-        height: 250px;
     }
 }
