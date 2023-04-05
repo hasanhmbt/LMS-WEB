@@ -74,6 +74,7 @@ namespace LMS_WEB.Controllers
         {
             ViewBag.categories = _appDbContext.BookCategories.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
             ViewBag.authors = _appDbContext.Authors.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = $"{c.Name}-{c.Surname}" }).ToList();
+           
             if (!ModelState.IsValid)
                 return View(model);
 

@@ -1,5 +1,4 @@
-﻿using LMS_Web.Data;
-using LMS_WEB.Data;
+﻿using LMS_WEB.Data;
 using LMS_WEB.Models.DbModels;
 using LMS_WEB.Models.IdentityModels;
 using LMS_WEB.Repositories.Abstract;
@@ -14,28 +13,19 @@ namespace LMS_WEB.Controllers
     {
 
         #region Fields
-
-        private readonly IOperationRepository _operationRepository;
-        private readonly AppDbContext _appDbContext;
-        private readonly AppIdentityDbContext _appIdentityDbContext;
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly UserManager<AppUser> _userManager;
-
+        private readonly AppDbContext _appDbContext;
+        private readonly ISiteRepository _siteRepository;
 
         public SiteOrderController(
-
-            IOperationRepository operationRepository,
             AppDbContext appDbContext,
-            IWebHostEnvironment webHostEnvironment,
             UserManager<AppUser> userManager,
-            AppIdentityDbContext appIdentityDbContext
+            ISiteRepository siteRepository
             )
         {
-            _appDbContext = appDbContext;
-            _operationRepository = operationRepository;
-            _webHostEnvironment = webHostEnvironment;
             _userManager = userManager;
-            _appIdentityDbContext = appIdentityDbContext;
+            _siteRepository = siteRepository;
+            _appDbContext = appDbContext;
         }
         #endregion
 
@@ -56,14 +46,15 @@ namespace LMS_WEB.Controllers
             var order = _appDbContext.Orders.Find(Id);
             _appDbContext.Orders.Remove(order);
             _appDbContext.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "SiteBook");
+
         }
 
 
-        public async Task<IActionResult> AddOrder(SiteOrderViewModel model)
+        public async Task<IActionResult> AddOrder(int Id )
         {
-            if (!ModelState.IsValid)
-                return View(model);
+            //if (!ModelState.IsValid)
+            //    return View(model);
 
 
             string userId = string.Empty;
@@ -73,13 +64,13 @@ namespace LMS_WEB.Controllers
                 userId = user.Id;
 
 
-            var operationId = _appDbContext.Orders.Add(new Order
+            int order = _siteRepository.Add(new Order
             {
-                BookId = model.BookId,
+                BookId = Id,
                 UserId = userId
 
             });
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "SiteBook");
 
         }
     }

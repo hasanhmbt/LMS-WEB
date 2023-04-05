@@ -14,11 +14,16 @@ namespace LMS_WEB.Repositories.Concrete
              _appDbContext = appDbContext;
         }
 
+ 
 
-        //public async Task<List<BookImage>> GetAllAsync()
-        //{
-        //    return await _appDbContext.BookImages.ToListAsync();
-        //}
+
+        public int Add(Order order)
+        {
+            _appDbContext.Orders.Add(order);
+            _appDbContext.SaveChanges();
+            return order.Id;
+        }
+
 
     }
 }

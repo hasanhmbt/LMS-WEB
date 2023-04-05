@@ -5,42 +5,43 @@
 <link href="~/css/animate.css" rel="stylesheet" />
 <link href="~/css/style.css" rel="stylesheet" />
 
+<div style="min-height:80vh;">
+    <div class="row mx-1 pt-5">
+        <table class="table   shadow text-center">
+            <thead class="table-dark">
 
-<div class="row mx-1 pt-5" style="min-height:80vh;">
-    <table class="table   shadow text-center">
-        <thead class="table-dark">
-
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Book</th>
-                <th scope="col">User Name</th>
-                <th scope="col">Order Date</th>
-                <th scope="col">Return book</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                int counter = 1;
-            }
-            @foreach (var order in Model)
-            {
                 <tr>
-                    <th scope="row">@counter</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Book</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Return book</th>
 
-                    <td>@order.BookName</td>
-                    <td>@order.UserName</td>
-                    <td>@order.OrderDate</td>
-                    <td>
-                        <a method="post" asp-action="DeleteOrder" asp-route-id="@order.Id" class="btn btn-sm btn-circle btn-danger ">  <i class="fa-sharp fa-regular fa-arrow-rotate-left"></i> </a>
-                    </td>
-                 
                 </tr>
+            </thead>
+            <tbody>
+                @{
+                    int counter = 1;
+                }
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <th scope="row">@counter</th>
 
-                counter++;
-            }
+                        <td>@order.BookName</td>
+                        <td>@order.UserName</td>
+                        <td>@order.OrderDate</td>
+                        <td>
+                            <a method="post" asp-action="DeleteOrder" asp-route-id="@order.Id" class="btn btn-sm btn-circle btn-danger ">  <i class="fa-sharp fa-regular fa-arrow-rotate-left"></i> </a>
+                        </td>
 
-        </tbody>
-    </table>
+                    </tr>
+
+                    counter++;
+                }
+
+            </tbody>
+        </table>
+    </div>
+
 </div>
-

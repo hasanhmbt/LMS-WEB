@@ -8,10 +8,11 @@ namespace LMS_WEB.Repositories.Concrete
     public class BookRepository : IBookRepository
     {
         private readonly AppDbContext _appDbContext;
-
+      
         public BookRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
+           
         }
 
         public int Add(Book book)
