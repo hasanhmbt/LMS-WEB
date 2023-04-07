@@ -2,7 +2,6 @@
 using LMS_WEB.Models.DbModels;
 using LMS_WEB.Models.IdentityModels;
 using LMS_WEB.Repositories.Abstract;
-using LMS_WEB.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

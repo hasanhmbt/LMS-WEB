@@ -36,6 +36,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<VwBookCategory> VwBookCategories { get; set; }
 
+    public virtual DbSet<VwMostOrderedBook> VwMostOrderedBooks { get; set; }
+
     public virtual DbSet<VwOperation> VwOperations { get; set; }
 
     public virtual DbSet<Vworeder> Vworeders { get; set; }
@@ -112,6 +114,11 @@ public partial class AppDbContext : DbContext
         modelBuilder.Entity<VwBookCategory>(entity =>
         {
             entity.ToView("VwBookCategory");
+        });
+
+        modelBuilder.Entity<VwMostOrderedBook>(entity =>
+        {
+            entity.ToView("VwMostOrderedBooks");
         });
 
         modelBuilder.Entity<VwOperation>(entity =>

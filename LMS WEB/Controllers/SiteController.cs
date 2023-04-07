@@ -29,7 +29,9 @@ namespace LMS_WEB.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var books = _appDbContext.VwMostOrderedBooks.ToList();
+
+            return View(books);
         }
     }
 }

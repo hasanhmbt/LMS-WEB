@@ -4,7 +4,7 @@ using LMS_WEB.Models.DbModels;
 
 namespace LMS_WEB.Data
 {
-    public class AppFuncContext:AppDbContext
+    public class AppFuncContext : AppDbContext
     {
         public AppFuncContext()
         {
@@ -18,21 +18,19 @@ namespace LMS_WEB.Data
         public IQueryable<FncDashboardCounts> FncDashboardCounts(string beginDate, string endDate)
         => FromExpression(() => FncDashboardCounts(beginDate, endDate));
         public IQueryable<FncGetBookRemainder> FncGetBookRemainder(int id, int saleId)
-      => FromExpression(() => FncGetBookRemainder(id, saleId));
+        => FromExpression(() => FncGetBookRemainder(id, saleId));
 
-       public IQueryable<FncFncMostOrderedBooks> FncFncMostOrderedBooks(string beginDate, string endDate)
-       => FromExpression(() => FncFncMostOrderedBooks(beginDate, endDate));
+        public IQueryable<FncMostOrderedBooks> FncMostOrderedBooks(string beginDate, string endDate)
+        => FromExpression(() => FncMostOrderedBooks(beginDate, endDate));
 
-      //  public IQueryable<FncBestSellingProduct> FncBestSellingProducts(string beginDate, string endDate)
-      //=> FromExpression(() => FncBestSellingProducts(beginDate, endDate));
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDbFunction(typeof(AppFuncContext).GetMethod(nameof(FncDashboardCounts), new[] { typeof(string), typeof(string) }));
             modelBuilder.HasDbFunction(typeof(AppFuncContext).GetMethod(nameof(FncGetBookRemainder), new[] { typeof(int), typeof(int) }));
-            modelBuilder.HasDbFunction(typeof(AppFuncContext).GetMethod(nameof(FncFncMostOrderedBooks), new[] { typeof(string), typeof(string) }));
-            //modelBuilder.HasDbFunction(typeof(AppFuncContext).GetMethod(nameof(FncBestSellingProducts), new[] { typeof(string), typeof(string) }));
+            modelBuilder.HasDbFunction(typeof(AppFuncContext).GetMethod(nameof(FncMostOrderedBooks), new[] { typeof(string), typeof(string) }));
         }
     }
 }

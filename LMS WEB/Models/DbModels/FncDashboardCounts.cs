@@ -6,11 +6,11 @@ namespace LMS_WEB.Models.DbModels
     [Keyless]
     public class FncDashboardCounts
     {
-        public int? BookCategories { get; set; }
-        public int? AllBooks { get; set; }
-        public int? AllReaders { get; set; }
-        public int? AllAuthors { get; set; }
-        public int? OrederedBooks { get; set; }
+        public int? bookCategories { get; set; }
+        public int? allBooks { get; set; }
+        public int? allReaders { get; set; }
+        public int? allAuthors { get; set; }
+        public int? orederedBooks { get; set; }
 
     }
 }
