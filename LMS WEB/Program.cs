@@ -11,12 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IBookRepository,BookRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBookCategoryRepository, BookCategoryRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
 builder.Services.AddScoped<IOperationRepository, OperationRepository>();
-builder.Services.AddScoped<ISiteRepository,  SiteRepository>();
+builder.Services.AddScoped<ISiteRepository, SiteRepository>();
+builder.Services.AddScoped<IEventsRepository, EventsRepository>();
 builder.Services.AddScoped<List<VwBookCategory>>();
 builder.Services.AddScoped<List<VwBook>>();
 builder.Services.AddScoped<List<VwOperation>>();

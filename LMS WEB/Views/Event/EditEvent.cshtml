@@ -1,0 +1,22 @@
+﻿@model AddOrEditEventViewModel
+
+
+@{
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Edit Event</h1>
+</div>
+
+
+<form method="post" asp-action="EditEvent" , asp-controller="Event" enctype="multipart/form-data">
+
+    <partial name="_AddOrEditEventPartial" model="@Model" />
+
+</form>
+

@@ -6,23 +6,13 @@ namespace LMS_WEB.Controllers
 {
     public class SiteController : Controller
     {
-
-        private readonly IBookRepository _bookRepository;
         private readonly AppDbContext _appDbContext;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IBookCategoryRepository _categoryRepository;
 
         public SiteController(
-            IBookRepository bookRepository,
-            AppDbContext appDbContext,
-            IWebHostEnvironment webHostEnvironment,
-            IBookCategoryRepository bookCategoryRepository
+            AppDbContext appDbContext
             )
         {
             _appDbContext = appDbContext;
-            _bookRepository = bookRepository;
-            _categoryRepository = bookCategoryRepository;
-            _webHostEnvironment = webHostEnvironment;
 
 
         }
@@ -32,6 +22,18 @@ namespace LMS_WEB.Controllers
             var books = _appDbContext.VwMostOrderedBooks.ToList();
 
             return View(books);
+        }
+
+
+        public IActionResult RecommendedBooks()
+        {
+            var books = _appDbContext.VwMostOrderedBooks.ToList();
+            books = books.OrderBy(x => Guid.NewGuid()).ToList();
+
+            var randomBooks = books.Take(3).ToList();
+
+
+            return View(randomBooks);
         }
     }
 }

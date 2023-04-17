@@ -1,0 +1,98 @@
+﻿@model List<Event>
+
+@{
+    ViewData["Title"] = "Events";
+    Layout = "_Layout";
+}
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-BI9q5YJ7pBtWlB8mS3+LbUrZm10JFSpDB+8JvM9rtgFZDSTfCw+2KxEzijJyQtlkLKB50skJ8WbE9AV4Y5q5gw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Events</h1>
+    <a asp-action="AddEvent" class="d-sm-inline-block btn btn-sm btn-outline-primary shadow-sm"><i class="fas fa-plus"></i> New </a>
+</div>
+
+
+
+
+<style>
+    .truncated-text {
+        cursor: pointer;
+    }
+
+    .popup {
+        position: absolute;
+        display: none;
+        padding: 5px;
+        background-color: white;
+        border: 1px solid black;
+        z-index: 9999;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 14px;
+    }
+</style>
+
+
+
+
+<div class="row mx-1">
+    <table class="table table-bordered shadow text-center">
+        <thead class="table-dark">
+
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Event date</th>
+                <th width="130" scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+            }
+            @foreach (var Event in Model)
+            {
+                <tr>
+                    <th scope="row">@counter</th>
+                    <td>@Event.Name</td>
+                    <td class="truncated-text" data-full-text="@Event.EventDescription">
+                        @{
+                            var maxLength = 50;
+                            var truncatedText = Event.EventDescription.Length > maxLength
+                            ? Event.EventDescription.Substring(0, maxLength) + "..."
+                            : Event.EventDescription;
+                        }
+                        @truncatedText
+                        <div class="popup"></div>
+                    </td>
+                    <td>@Event.EventTime?.ToString("dd-MM-yyyy | hh:mm ")</td>
+                    <td>
+                        <a asp-action="EditEvent" asp-route-id="@Event.Id" class="btn btn-sm btn-circle btn-primary"><i class="fa-light fa-pen-to-square"></i></a>
+                        <a onclick="return confirm('Are you sure to delete?')" asp-action="DeleteEvent" asp-route-id="@Event.Id" class="btn btn-sm btn-circle btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+
+                counter++;
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.truncated-text').hover(function () {
+            var fullText = $(this).data('full-text');
+            $(this).append($('<div class="popup">' + fullText + '</div>'));
+            $('.popup').fadeIn('slow');
+        }, function () {
+            $('.popup').fadeOut('slow');
+            $('.popup').remove();
+        });
+    });
+</script>
+

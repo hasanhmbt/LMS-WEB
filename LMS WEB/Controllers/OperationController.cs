@@ -39,7 +39,9 @@ namespace LMS_WEB.Controllers
             _appIdentityDbContext = appIdentityDbContext;
         }
 
+       
 
+      
 
         public async Task<IActionResult> Index()
         {

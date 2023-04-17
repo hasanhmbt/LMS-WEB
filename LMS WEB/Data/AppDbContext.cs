@@ -22,6 +22,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<BookCategory> BookCategories { get; set; }
 
+    public virtual DbSet<Event> Events { get; set; }
+
     public virtual DbSet<Month> Months { get; set; }
 
     public virtual DbSet<Operation> Operations { get; set; }
@@ -70,6 +72,13 @@ public partial class AppDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__BookCate__3214EC07DCAE4D49");
 
             entity.Property(e => e.CategoryDescription).HasDefaultValueSql("((1))");
+        });
+
+        modelBuilder.Entity<Event>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Events__3214EC0754B38579");
+
+            entity.Property(e => e.EventTime).HasDefaultValueSql("(getdate())");
         });
 
         modelBuilder.Entity<Operation>(entity =>

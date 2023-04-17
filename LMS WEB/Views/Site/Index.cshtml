@@ -1,6 +1,9 @@
 ﻿@model List<VwMostOrderedBook>
 
 
+@{
+    ViewData["Title"] = "Home";
+}
 
 
 
@@ -68,9 +71,6 @@
     }
 </style>
 <hr></hr>
-
- 
-    
 <h1 class="mint" style="text-align: center">Most read books</h1>
 
 
@@ -235,11 +235,37 @@
     }
 </style>
 
-
+<form asp-controller="Site" asp-action="RecommendedBooks">
 <div class="BookCon">
 
 
+
+@*    @foreach (var books in Model)
+    {
+        
+
     <div class="BookCard">
+        <img src="@books.ImagePath" asp-append-version="true" class="CardImage" />
+
+        <div class="CardBody">
+            <div class="CardMain">
+                <a href="" class="BookAuthor">@books.Author</a>
+                <h5 class="BookName"> @books.Name</h5>
+                <p class="BookDescription">
+                    @books.Description
+                </p>
+            </div>
+            <div class="OrderSection">
+                <a asp-controller="SiteBook" asp-action="OrderBook" asp-route-id="" class="orderBtn">Order</a>
+            </div>
+        </div>
+    </div>
+
+    }
+*@
+
+
+      <div class="BookCard">
         <img src="~/uploads/books/doc_20230331_000842927.jpg" asp-append-version="true" class="CardImage" />
      
         <div class="CardBody">
@@ -289,8 +315,9 @@
             </div>
         </div>
     </div>
-
+ 
 </div>
+</form>
 <script>
     $(document).ready(function () {
         $('.truncated-text').hover(function
