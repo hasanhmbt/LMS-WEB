@@ -18,4 +18,7 @@ public partial class Event
 
     [Column(TypeName = "datetime")]
     public DateTime? EventTime { get; set; }
+
+    [StringLength(100)]
+    public string? ImagePath { get; set; }
 }

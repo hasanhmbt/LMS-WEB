@@ -21,5 +21,10 @@ namespace LMS_WEB.ViewModels.IdentityModels
         [Required(ErrorMessage = "You must enter a envent date")]
         [Column(TypeName = "datetime")]
         public DateTime? EventTime { get; set; }
+
+        [StringLength(100)]
+        public string? ImagePath { get; set; }
+        public IFormFile? EventImage { get; set; }
+
     }
 }

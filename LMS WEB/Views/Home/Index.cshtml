@@ -202,6 +202,11 @@
     </script>
 
     <script src="~/vendor/chartjs/line-chart.js" asp-append-version="true"></script>
-    <script src="~/vendor/chartjs/doughnut-chart.js" asp-append-version="true"></script>
+    <script src="~/vendor/chartjs/doughnut-chart.js" asp-append-version="true"></script>}
+
 }
+ else
+{
+    <a asp-controller="Account" asp-action="AccessDenied"></a>
 }
+
