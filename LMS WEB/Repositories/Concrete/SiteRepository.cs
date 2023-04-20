@@ -25,5 +25,11 @@ namespace LMS_WEB.Repositories.Concrete
         }
 
 
+
+        public async Task<Vworeder> GetByIdAsync(int? Id)
+        {
+            return await _appDbContext.Vworeders.FindAsync(Id);
+        }
+
     }
 }

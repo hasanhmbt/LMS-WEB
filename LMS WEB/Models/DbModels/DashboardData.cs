@@ -4,5 +4,7 @@
     {
         public FncDashboardCounts? DashboardCounts { get; set; }
 
+        public MostOrderedBookModel? MostOrderedBooks { get; set;}
+
     }
 }

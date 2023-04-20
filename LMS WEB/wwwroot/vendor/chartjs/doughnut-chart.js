@@ -3,12 +3,13 @@
         labels: pieDataLabels, //['Red', 'Orange', 'Yellow'],
         datasets: [
             {
-                label: 'Sale count',
+                label: 'Book count',
                 data: pieDataSet //[50,70,30],
                 //backgroundColor: Object.values(Utils.CHART_COLORS),
             }
         ]
     };
+
 
 
     const pieConfig = {
@@ -22,7 +23,7 @@
                 },
                 title: {
                     display: false
-                }
+                } 
             }
         },
     };

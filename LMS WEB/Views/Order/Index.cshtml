@@ -1,5 +1,68 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Vworeder>
 @{
+    Layout = "_Layout";
 }
+
+
+@{
+    ViewData["Title"] = " Orders";
+}
+
+
+
+<style >
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 3px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+</style>
+
+
+
+<div class="row mx-1">
+    <table class="table table-bordered shadow text-center">
+        <thead class="table-dark">
+
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Book Name</th>
+                <th scope="col">Order Date</th>
+                <th width="130" onmouseover="" scope="col">Accept</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int counter = 1;
+            }
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <th scope="row">@counter</th>
+
+                    <td>@order.UserName</td>
+                    <td>@order.BookName</td>
+                    <td>@order.OrderDate</td>
+                  
+
+                    <td>
+                        <a  asp-action="AcceptOrder" asp-route-id="@order.Id" class="btn btn-sm button"><i class="fa-solid fa-check"></i></a>
+                    </td>
+                </tr>
+
+                counter++;
+            }
+
+        </tbody>
+    </table>
+</div>
+

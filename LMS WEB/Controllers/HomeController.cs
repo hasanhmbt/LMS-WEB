@@ -37,6 +37,12 @@ namespace LMS_WEB.Controllers
 
                 var mostOrderedBooks = _appFuncContext.FncMostOrderedBooks(beginDate, endDate).ToList();
 
+                dashboardData.MostOrderedBooks = new MostOrderedBookModel
+                {
+                    BookNames = mostOrderedBooks.Select(b => b.Book).ToList(),
+
+                    OrderCounts = mostOrderedBooks.Select(b => b.OrderCount).ToList()
+                };
             }
             catch (Exception)
             { }

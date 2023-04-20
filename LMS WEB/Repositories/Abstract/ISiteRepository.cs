@@ -4,8 +4,8 @@ namespace LMS_WEB.Repositories.Abstract
 {
     public interface ISiteRepository
     {
-        public int Add(Order order);
-
+        int Add(Order order);
+        Task<Vworeder> GetByIdAsync(int? id);
 
 
     }

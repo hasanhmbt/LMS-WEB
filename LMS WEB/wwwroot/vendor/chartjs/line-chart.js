@@ -1,13 +1,11 @@
 ﻿function makeLineChart() {
-
-    //const datapoints = [20, 0, 60, 60, 120, 100, 180, 120, 125, 105, 110, 170];
-
+    const areaLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const areaData = {
-        labels: areaLabels, //["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: areaLabels,
         datasets: [
             {
                 label: 'Total',
-                data: areaDataSet,
+                data: [0, 0, 8, 1,0,0,0,0,0],
                 borderColor: 'red',
                 fill: false,
                 cubicInterpolationMode: 'monotone',
@@ -32,12 +30,12 @@
             interaction: {
                 intersect: false,
             },
-
             scales: {
                 x: {
                     display: true,
                     title: {
-                        display: true
+                        display: true,
+                        text: 'Months'
                     }
                 },
                 y: {
@@ -45,15 +43,13 @@
                     title: {
                         display: true,
                         text: 'Totals'
-                    }
-                    //,
-                    //suggestedMin: -10,
-                    //suggestedMax: 200
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 50
                 }
             }
         },
     };
-
 
     // Line Chart Example
     var ctx = document.getElementById("myAreaChart");

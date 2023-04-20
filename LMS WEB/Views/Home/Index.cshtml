@@ -1,10 +1,11 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity;
+
+@{
     ViewData["Title"] = "Dashboard";
 }
 @{
     Layout = "_Layout";
 }
-@using Microsoft.AspNetCore.Identity;
 @inject UserManager<AppUser> _userManager
 
 @{
@@ -114,32 +115,49 @@
         </div>
 
 
+        <div class="row mb-4">
+
+            <!-- Area Chart -->
+            <div class="col-xl-8 col-lg-7">
+
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Total ordered books</h6>
+                    </div>
+                    <div class="card-body p-1">
+                        <div class="chart-area2">
+                            <canvas id="myAreaChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Donut Chart -->
+            <div class="col-xl-4 col-lg-5">
+
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Most ordered books</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie2">
+                            <canvas id="myPieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
 
-        @*        <!-- Donut Chart -->
-    <div class="col-xl-4 col-lg-5">
 
-    <div class="card shadow">
-    <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">The most read books</h6>
-    </div>
-    <div class="card-body">
-    <div class="chart-pie2">
-    <canvas id="myPieChart"></canvas>
-    </div>
-    </div>
-    </div>
-
-    </div>*@
-
-
-
+        </div>
     </div>
 
 
     @section Scripts{
-    @*<script src="~/vendor/chartjs/chartjs.min.js"></script>*@
 
+    <script src="~/vendor/chartjs/chartjs.min.js"></script>
 
     <script asp-append-version="true">
 
@@ -181,17 +199,30 @@
                 }
 
 
-                ////doughut chart
-                //if (res.bestSellingProduct != null) {
-                //    pieDataLabels = res.bestSellingProduct.productNames;
-                //    pieDataSet = res.bestSellingProduct.productCounts
+                //doughut chart
+                if (res.mostOrderedBooks != null) {
+                    pieDataLabels = res.mostOrderedBooks.bookNames;
+                    pieDataSet = res.mostOrderedBooks.orderCounts;
 
-                //    if (myPieChart != null) {
-                //        myPieChart.destroy();
+                    if (myPieChart != null) {
+                        myPieChart.destroy();
+                    }
+
+                    makeDoughnutChart();
+                }
+
+
+                //line chart
+                //if (res.totalEarnings != null) {
+                //    areaLabels = res.totalEarnings.months;
+                //    areaDataSet = res.totalEarnings.totals
+
+                //    if (myLineChart != null) {
+                //        myLineChart.destroy();
                 //    }
 
-                //    makeDoughnutChart();
                 //}
+                    makeLineChart();
 
 
             });
@@ -202,11 +233,9 @@
     </script>
 
     <script src="~/vendor/chartjs/line-chart.js" asp-append-version="true"></script>
-    <script src="~/vendor/chartjs/doughnut-chart.js" asp-append-version="true"></script>}
+    <script src="~/vendor/chartjs/doughnut-chart.js" asp-append-version="true"></script>
+}
 
 }
- else
-{
-    <a asp-controller="Account" asp-action="AccessDenied"></a>
-}
+
 

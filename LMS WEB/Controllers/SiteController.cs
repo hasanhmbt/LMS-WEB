@@ -1,6 +1,7 @@
 ﻿using LMS_WEB.Data;
 using LMS_WEB.Repositories.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMS_WEB.Controllers
 {
@@ -35,5 +36,16 @@ namespace LMS_WEB.Controllers
 
             return View(randomBooks);
         }
+
+
+
+        public async Task<IActionResult> CategotyFilter(int Id)
+        {
+
+            var filteredBooks = await _appDbContext.VwBooks.Where(b => b.AuthorId.Equals(Id)).OrderByDescending(b => b.Id).ToListAsync();
+            return View(filteredBooks);
+
+        }
+
     }
 }

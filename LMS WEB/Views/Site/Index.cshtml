@@ -28,7 +28,7 @@
         border: none;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease-in-out;
-        height: 100%;
+        height: 96%;
     }
 
         .card:hover {
@@ -70,7 +70,8 @@
         width: 100%;
     }
 </style>
-<hr></hr>
+
+<hr> 
 <h1 class="mint" style="text-align: center">Most read books</h1>
 
 
@@ -86,7 +87,6 @@
                 <div class="card">
                     <img src="@book.ImagePath" asp-append-version="true" class="card-img-top" />
 
-
                     <div class="card-body">
                         <h5 class="card-title">@book.Name</h5>
                         <a asp-controller="SiteBook" asp-action="BookAuthor" asp-route-id="@book.AuthorId"><i class="fas fa-feather"></i> @book.Author </a>
@@ -101,7 +101,7 @@
     </div>
 </div>
 
-<hr><hr>
+ <hr>
 
  
 <h1 class="mint" style="text-align: center">Recommended</h1>
@@ -266,12 +266,12 @@
 
 
       <div class="BookCard">
-        <img src="~/uploads/books/doc_20230331_000842927.jpg" asp-append-version="true" class="CardImage" />
+            <img src="~/uploads/books/doc_20230331_000833728.jpg" asp-append-version="true" class="CardImage" /> 
      
         <div class="CardBody">
             <div class="CardMain">
-                <a href="" class="BookAuthor"> Toni Morrison</a>
-                <h5 class="BookName"> Sula</h5>
+                    <a href="" class="BookAuthor">Ernest Hemingway</a>
+                    <h5 class="BookName"> For Whom the Bell Tolls</h5>
                 <p class="BookDescription">
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                 </p>

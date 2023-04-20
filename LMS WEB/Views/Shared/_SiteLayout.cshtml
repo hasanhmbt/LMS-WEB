@@ -64,7 +64,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                             @foreach (var category in _category)
                             {
-                                <a class="dropdown-item"  asp-route-id="@category.Id">@category.Name</a>
+                                <a class="dropdown-item" asp-controller="Site" asp-action="CategotyFilter" asp-route-id="@category.Id">@category.Name</a>
 
                             }
 
