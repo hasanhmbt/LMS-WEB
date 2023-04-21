@@ -36,6 +36,13 @@ namespace LMS_WEB.Controllers
                 dashboardData.DashboardCounts = _appFuncContext.FncDashboardCounts(beginDate, endDate).FirstOrDefault();
 
                 var mostOrderedBooks = _appFuncContext.FncMostOrderedBooks(beginDate, endDate).ToList();
+                var totalOrderedBooks = _appFuncContext.FncTotalOrderBooks(beginDate, endDate).ToList();
+
+                dashboardData.TotalOrderBooks = new TotalOrderModel
+                {
+                    Months = totalOrderedBooks.Select(b => b.Month).ToList(),
+                    Totals = totalOrderedBooks.Select(b => b.Total).ToList()
+                };
 
                 dashboardData.MostOrderedBooks = new MostOrderedBookModel
                 {

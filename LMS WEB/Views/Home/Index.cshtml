@@ -213,16 +213,16 @@
 
 
                 //line chart
-                //if (res.totalEarnings != null) {
-                //    areaLabels = res.totalEarnings.months;
-                //    areaDataSet = res.totalEarnings.totals
+                if (res.totalOrderBooks != null) {
+                    areaLabels = res.totalOrderBooks.months;
+                    areaDataSet = res.totalOrderBooks.totals
 
-                //    if (myLineChart != null) {
-                //        myLineChart.destroy();
-                //    }
+                    if (myLineChart != null) {
+                        myLineChart.destroy();
+                    }
 
-                //}
                     makeLineChart();
+                }
 
 
             });

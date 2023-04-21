@@ -6,5 +6,7 @@
 
         public MostOrderedBookModel? MostOrderedBooks { get; set;}
 
+        public TotalOrderModel? TotalOrderBooks { get; set; } 
+
     }
 }

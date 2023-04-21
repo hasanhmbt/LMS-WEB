@@ -15,6 +15,8 @@ namespace LMS_WEB.Data
         {
         }
 
+        public IQueryable<FncTotalOrderBooks> FncTotalOrderBooks(string beginDate, string endDate)
+       => FromExpression(() => FncTotalOrderBooks(beginDate, endDate));
         public IQueryable<FncDashboardCounts> FncDashboardCounts(string beginDate, string endDate)
         => FromExpression(() => FncDashboardCounts(beginDate, endDate));
         public IQueryable<FncGetBookRemainder> FncGetBookRemainder(int id, int saleId)
@@ -31,6 +33,7 @@ namespace LMS_WEB.Data
             modelBuilder.HasDbFunction(typeof(AppFuncContext).GetMethod(nameof(FncDashboardCounts), new[] { typeof(string), typeof(string) }));
             modelBuilder.HasDbFunction(typeof(AppFuncContext).GetMethod(nameof(FncGetBookRemainder), new[] { typeof(int), typeof(int) }));
             modelBuilder.HasDbFunction(typeof(AppFuncContext).GetMethod(nameof(FncMostOrderedBooks), new[] { typeof(string), typeof(string) }));
+            modelBuilder.HasDbFunction(typeof(AppFuncContext).GetMethod(nameof(FncTotalOrderBooks), new[] { typeof(string), typeof(string) }));
         }
     }
 }
