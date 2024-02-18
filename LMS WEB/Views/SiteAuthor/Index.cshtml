@@ -12,9 +12,9 @@
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     }
 
-    .card:hover {
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    }
+        .card:hover {
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
 
     .card-img-top {
         height: 250px;
@@ -60,14 +60,14 @@
         transition: all 0.3s ease;
     }
 
-    .btn:hover {
-        background-color: #324cdd;
-        border-color: #324cdd;
-    }
+        .btn:hover {
+            background-color: #324cdd;
+            border-color: #324cdd;
+        }
 
-    .btn i {
-        margin-right: 5px;
-    }
+        .btn i {
+            margin-right: 5px;
+        }
 
 </style>
 
@@ -81,10 +81,11 @@
                          class="card-img-top"
                          asp-append-version="true"
                          alt="@author.Name"
-                         title="@author.Name"/>
+                         title="@author.Name" />
 
                     <div class="card-body">
-                        <h5 class="card-title">@author.Name
+                        <h5 class="card-title">
+                            @author.Name
                             @if (!string.IsNullOrEmpty(author.Surname))
                             {
                                 <span>@author.Surname</span>
@@ -94,17 +95,23 @@
                             @{
                                 var maxLength = 100;
                                 var truncatedText = author.Description.Length > maxLength
-                                    ? author.Description.Substring(0, maxLength) + "..."
-                                    : author.Description;
+                                ? author.Description.Substring(0, maxLength) + "..."
+                                : author.Description;
                             }
                             @truncatedText
                             <div class="popup"></div>
                         </p>
-                        <a href="@Url.Action("Index", "SiteBook" )"
-                           class="btn">
-                            <i class="fas fa-book"></i>
-                            Books
-                        </a>
+                        <form method="post" asp-controller="SiteBookController" asp-action="FilterBookByAuthors">
+
+                            <input type="hidden" value="@ViewBag.book" name="book" />
+                            <input type="hidden" value="@ViewBag.bookId" name="bookId" />
+                            <input type="hidden" value="@ViewBag.authorName" name="authorName" />
+
+                            <button class="SubmitBtn" type="submit">
+                             <i class="fas fa-book"></i>
+                              Books
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -122,4 +129,5 @@
             $('.popup').fadeOut('slow');
             $('.popup').remove();
         });
-   
+</script>
+

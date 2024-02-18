@@ -59,6 +59,19 @@ namespace LMS_WEB.Controllers
         }
 
 
+        
+
+        public async Task<IActionResult> FilteredBooksbyAuthor(int bookId, string book, string authorName)
+        {
+            var books = await _bookRepository.FilterByAuthorGetAllAsync(bookId, authorName);
+            ViewBag.book = book;
+            ViewBag.bookId = bookId;
+            ViewBag.SearchText = authorName;
+
+            return View(books);
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> OrderBook(int Id)
         {

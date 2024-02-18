@@ -45,6 +45,14 @@ namespace LMS_WEB.Repositories.Concrete
                 return await _appDbContext.VwBooks.OrderByDescending(b => b.Id).ToListAsync();
         }
 
+        public async Task<List<VwBook>> FilterByAuthorGetAllAsync(int boookId, string searchText = "")
+        {
+            if (searchText != null)
+                return await _appDbContext.VwBooks.Where(b => b.Author.Contains(searchText)).OrderByDescending(b => b.Id).ToListAsync();
+            else
+                return await _appDbContext.VwBooks.OrderByDescending(b => b.Id).ToListAsync();
+        }
+
         public async Task<Book>  GetByIdAsync(int? id)
         {
             return await _appDbContext.Books.FindAsync(id);

@@ -6,6 +6,7 @@ namespace LMS_WEB.Repositories.Abstract
     {
 
         Task<List<VwBook>> GetAllAsync(int bookId, string searchText = "");
+        Task<List<VwBook>> FilterByAuthorGetAllAsync(int bookId, string searchText = "");
 
         Task<Book> GetByIdAsync(int? id);
         int Add(Book book);

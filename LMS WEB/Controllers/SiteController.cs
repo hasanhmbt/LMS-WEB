@@ -41,8 +41,9 @@ namespace LMS_WEB.Controllers
 
         public async Task<IActionResult> CategotyFilter(int Id)
         {
+            // not working
 
-            var filteredBooks = await _appDbContext.VwBooks.Where(b => b.AuthorId.Equals(Id)).OrderByDescending(b => b.Id).ToListAsync();
+            var filteredBooks = await _appDbContext.VwBooks.Where(b => b.CategoryId.Equals(Id)).OrderByDescending(b => b.Id).ToListAsync();
             return View(filteredBooks);
 
         }
